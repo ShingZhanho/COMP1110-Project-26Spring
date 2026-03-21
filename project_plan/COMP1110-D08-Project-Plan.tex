@@ -41,6 +41,27 @@ To achieve that, the group will model the campus as an undirected multigraph as 
 \begin{equation} \label{eq:graph}
     G=(V,E),
 \end{equation}
-where for each vertex $v \in V$, $v$ will represent a key location on the campus, such as a building entrance, a canteen, etc.,
+where for each vertex $v \in V$, $v$ represents a key location on the campus, such as a building entrance, a canteen, etc.;
+and for each edge $e \in E$ represents an undirected path between two distinct vertices.
+In addition to the graph structure, each edge will have a set of attributes, such as the average walking time, type of path (e.g., slope, stairs, etc.), etc.
+The details of what attributes to include will be determined during the design phase of the project.
+
+\section{Review of Existing Solutions}
+
+For researching purposes, the group will review three types of existing solutions, each with two examples:
+\begin{enumerate}
+    \item \textbf{General purpose route planners}: Google Maps, Citymapper;
+    \item \textbf{Transportation-specific route planners}: MTR Mobile App, HKBUS.app; and
+    \item \textbf{Static navigation systems}: HKU campus map, On-campus navigation signages.
+\end{enumerate}
+The examples will be evaluated across several dimensions, such as easiness of use, specificity for pedestrian navigation, etc.
+The conclusions drawn from the comparison shall be used to fine-tune the design of our own route planning implementation.
+
+\section{Task Decomposition, Assignments \& Timeline}
+
+The project will be decomposed into three phases: \textbf{Research \& Design}, \textbf{Implementation}, and \textbf{Test \& Evaluation}, each with its dedicated tasks.
+Each task has a defined timeline and expected deliverables, which will be detailed in the following subsections.
+
+\subsection{Task Decomposition}
 
 \end{document}
