@@ -1,4 +1,4 @@
-\documentclass[a4paper,noamsfont,11pt]{amsart}
+\documentclass[a4paper,12pt]{amsart}
 
 \input{preambles.tex}
 
@@ -6,27 +6,41 @@
 
 % Top matter
 \title[Project Plan]{Project Plan for the Course COMP1110 -- Group D08}
-
-\author[C. Banh]{Chun Hei Banh}
-    \address{}
-    \email{}
-
-\author[S. Liu]{Sze Pok Liu}
-    \address{}
-    \email{u3658945@connect.hku.hk}
-
-\author[J. Shing]{Zhan Ho Jacob Shing}
-    \address{BEng(CompSc), 3036228892}
-    \email{jacobszh@connect.hku.hk}
-
-\author[Y. Ye]{Yubing Ye}
-    \address{}
-    \email{u3629150@connect.hku.hk}
-
-\author[Y. Zhang]{Yikun Zhang}
-    \address{}
-    \email{pzdmmsd@connect.hku.hk}
-
+% Authors, in alphabetical order by surname
+%%
+\newcommand{\cBanh}{C. Banh}
+\author[\cBanh]{Chun Hei Banh}
+\address{\cBanh, [Programme], [UID], \href{mailto:??@connect.hku.hk}{\texttt{??@connect.hku.hk}}}
+%
+\newcommand{\sLiu}{S. Liu}
+\author[\sLiu]{Sze Pok Liu}
+\address{\sLiu, [Programme], [UID], \href{mailto:u3658945@connect.hku.hk}{\texttt{u3658945@connect.hku.hk}}}
+%
+\newcommand{\jShing}{J. Shing}
+\author[\jShing]{Zhan Ho Jacob Shing}
+\address{\jShing, BEng(CompSc), 3036228892, \href{mailto:jacobszh@connect.hku.hk}{\texttt{jacobszh@connect.hku.hk}}}
+%
+\newcommand{\yYe}{Y. Ye}
+\author[\yYe]{Yubing Ye}
+\address{\yYe, [Programme], [UID], \href{mailto:u3629150@connect.hku.hk}{\texttt{u3629150@connect.hku.hk}}}
+%
+\newcommand{\yZhang}{Y. Zhang}
+\author[\yZhang]{Yikun Zhang}
+\address{\yZhang, [Programme], [UID], \href{mailto:pzdmmsd@connect.hku.hk}{\texttt{pzdmmsd@connect.hku.hk}}}
+%%
+\date{21 March 2026}
 \maketitle
+
+% BODY
+
+\section{Topic Selection \& Introduction}
+
+The group has selected the topic \textbf{B. Smart Public Transport Advisor} for the project.
+For the project, the group will implement a route planner with the focus for pedestrian navigation within the campus of The University of Hong Kong (HKU).
+To achieve that, the group will model the campus as an undirected multigraph as defined mathematically by:
+\begin{equation} \label{eq:graph}
+    G=(V,E),
+\end{equation}
+where for each vertex $v \in V$, $v$ will represent a key location on the campus, such as a building entrance, a canteen, etc.,
 
 \end{document}
