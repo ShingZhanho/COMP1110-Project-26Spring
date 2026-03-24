@@ -1,5 +1,6 @@
 from enum import StrEnum
 
+
 class EdgeType(StrEnum):
     """
     The type of edge between two nodes.

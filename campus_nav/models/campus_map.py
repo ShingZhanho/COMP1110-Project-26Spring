@@ -4,6 +4,7 @@ from .edge import Edge
 from .edge_type import EdgeType
 from .node import Node
 
+
 class CampusMap:
     """
     Represents the map of HKU as an undirected multigraph.
