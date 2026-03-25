@@ -1,4 +1,4 @@
-name: Python Import Checks
+name: Python Checks
 
 on:
   push:
