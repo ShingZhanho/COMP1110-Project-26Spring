@@ -19,19 +19,19 @@ def construct_map_from_csv(nodes_file: str = None, edges_file: str = None) -> Ca
     campus_map: CampusMap = CampusMap()
 
     # Read nodes
-    with open(str(nodes_file), mode='r', newline='') as csvfile:
-        reader = csv.reader(csvfile, delimiter=',')
-        next(reader) # Skip header
+    nodes_col_keys = ["node_id", "node_description"]
+    with open(str(nodes_file), mode='r', newline='', encoding='utf-8') as csvfile:
+        reader = csv.DictReader(csvfile, delimiter=',')
         for row in reader:
-            node_id, node_description = row
+            node_id, node_description = (row[key] for key in nodes_col_keys)
             campus_map.add_node(Node(node_id, node_description))
 
     # Read edges
-    with open(str(edges_file), mode='r', newline='') as csvfile:
-        reader = csv.reader(csvfile, delimiter=',')
-        next(reader) # Skip header
+    edges_col_keys = ["node_1_id", "node_2_id", "edge_type", "time_cost"]
+    with open(str(edges_file), mode='r', newline='', encoding='utf-8') as csvfile:
+        reader = csv.DictReader(csvfile, delimiter=',')
         for row in reader:
-            node1_id, node2_id, edge_type, edge_time_cost = row
+            node1_id, node2_id, edge_type, edge_time_cost = (row[key] for key in edges_col_keys)
             edge_type = EdgeType(edge_type)
             edge_time_cost = int(edge_time_cost)
             campus_map.add_edge(node1_id, node2_id, edge_type, edge_time_cost)

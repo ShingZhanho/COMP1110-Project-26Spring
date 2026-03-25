@@ -1,4 +1,4 @@
-node_1_id,node_2_id,node_type,time_cost
+node_1_id,node_2_id,edge_type,time_cost
 CYMAmenitiesCtr_GF_Entrance,SunYatSen_LilyPond,FLAT,22
 CYMAmenitiesCtr_GF_VendingHub,CYMAmenitiesCtr_GF_Entrance,STAIRS,10
 MainLib_2F_Entrance,MainLib_GF_Entrance,LIFT,13
