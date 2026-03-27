@@ -32,6 +32,10 @@ jobs:
         run: |
           python -c "from campus_nav.utils import fetch_csv_from_google_sheet; fetch_csv_from_google_sheet()"
 
+      - name: Normalise CSV files
+        run: |
+          python -c "from campus_nav.utils import normalise_csv_data; normalise_csv_data()"
+
       - name: Generate commit date (UTC+8)
         id: commit_date
         run: |
