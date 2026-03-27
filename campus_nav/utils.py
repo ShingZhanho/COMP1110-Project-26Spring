@@ -67,3 +67,15 @@ def fetch_csv_from_google_sheet(nodes_csv_path: str | None = None, edges_csv_pat
     response.raise_for_status()  # Check if the request was successful
     with open(edges_csv_path, 'wb') as f:
         f.write(response.content)
+
+def normalise_csv_data(nodes_file: str | None = None, edges_file: str | None = None) -> None:
+    """
+    Normalises the CSV data by reading the campus map from the given CSV files and writing it back in deterministic order.
+    For nodes, the order is sorted by node ID (lexicographically).
+    For edges, the nodes pair will be rearranged such that node1_id is smaller than node2_id (lexicographically)
+    and the order is sorted by (node1_id, node2_id, edge_type, time_cost).
+    :param nodes_file: The path to the CSV file containing nodes information. If None, it defaults to the bundled file.
+    :param edges_file: The path to the CSV file containing edges information. If None, it defaults to the bundled file.
+    """
+    campus_map = construct_map_from_csv(nodes_file=nodes_file, edges_file=edges_file)
+    campus_map.write_to_csv(nodes_file=nodes_file, edges_file=edges_file)

@@ -110,8 +110,8 @@ class CampusMap:
         :param nodes_file: The path to the CSV file to write the nodes information to. If None, it defaults to the bundled file.
         :param edges_file: The path to the CSV file to write the edges information to. If None, it defaults to the bundled file.
         """
-        if nodes_file is None: nodes_file = str(Path(__file__).resolve().parent / Const.NODES_CSV_PATH)
-        if edges_file is None: edges_file = str(Path(__file__).resolve().parent / Const.EDGES_CSV_PATH)
+        if nodes_file is None: nodes_file = str(Path(__file__).resolve().parent.parent / Const.NODES_CSV_PATH)
+        if edges_file is None: edges_file = str(Path(__file__).resolve().parent.parent / Const.EDGES_CSV_PATH)
 
         with open(str(nodes_file), mode='w', newline='', encoding='utf-8') as csvfile:
             fieldnames = ['node_id', 'node_description']
