@@ -12,8 +12,6 @@ FungPingShan_Building,Lift_Between_KKLeung_Knowles,ESCALATOR,91
 FungPingShan_Building,TTTsui_Building_LG_Entrance,FLAT,37
 InnoWingTwo,RunRunSBuilding_GF_Entrance,FLAT,22
 InnoWingTwo,StephenH_GeoMuseum_Entrance,FLAT,38
-InnoWingTwo,SunYatSenSteps_KnowlesBuilding_1F,STAIRS,50
-InnoWingTwo,SunYatSenSteps_KnowlesBuilding_1F,STAIRS,55
 KKLeung_Building_GF,KKLeung_Building_LG2F,LIFT,44
 KKLeung_Building_GF,Knowles_Building,FLAT,66
 KKLeung_Building_GF,Lift_Between_KKLeung_Knowles,FLAT,20
@@ -30,10 +28,9 @@ MengWahComplex_1F,MengWahComplex_GF,ESCALATOR,25
 MengWahComplex_1F,MengWahComplex_GF,STAIRS,26
 MengWahComplex_1F,RunmeS_4F,FLAT,28
 RaysonHTheatre_GF,RunRunSBuilding_GF_Entrance,FLAT,36
-RaysonHTheatre_GF,RunmeS_GF_Entrance,FLAT,7
-RaysonHTheatre_GF,RunmeS_GF_Entrance,FLAT,10
+RaysonHTheatre_GF,RunmeS_GF_Entrance,FLAT,8
 RaysonHTheatre_GF,SunYatSen_LilyPond,STAIRS,30
-RunRunSBuilding_GF_Entrance,SunYatSenSteps_KnowlesBuilding_1F,STAIRS,50
+RunRunSBuilding_GF_Entrance,SunYatSenSteps_KnowlesBuilding_1F,STAIRS,53
 RunRunSBuilding_GF_Entrance,SunYatSenSteps_KnowlesBuilding_1F,STAIRS,55
 RunRunSBuilding_GF_Entrance,SunYatSen_LilyPond,FLAT,79
 RunmeS_4F,RunmeS_GF_Entrance,STAIRS,88
