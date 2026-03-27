@@ -38,7 +38,7 @@ jobs:
             git checkout "$BRANCH"
 
             # Try to merge latest master; on conflict, recreate the branch
-            if ! git merge origin/master --no-edit; then
+            if ! git merge origin/master --no-edit -m "merge: sync changes from master"; then
               git merge --abort
               git checkout master
               git branch -D "$BRANCH"
