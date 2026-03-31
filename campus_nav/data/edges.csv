@@ -35,6 +35,8 @@ HakingWong_Lift_Inside_4F,HakingWong_Lift_Outside_4F,FLAT,31
 HakingWong_Lift_Inside_4F,HakingWong_Lift_Outside_5F,STAIRS,30
 HakingWong_Lift_Inside_4F,SURestaurant,FLAT,5
 HakingWong_Lift_Outside_4F,HakingWong_Lift_Outside_5F,LIFT,18
+HakingWong_Lift_Outside_4F,UStr_Lower_InnoWing_Terminal,FLAT,62
+HakingWong_Lift_Outside_4F,UStr_Upper_InnoWing_Entrance,LIFT,61
 HakingWong_Lift_Outside_5F,UStr_Upper_MTR_Exit,FLAT,45
 HakingWong_Lift_Outside_5F,UStr_Upper_MTR_Exit,MINOR_STAIRS,29
 InnoWingTwo,RunRunSBuilding_GF_Entrance,FLAT,22
@@ -60,8 +62,6 @@ Library Extension,MainLib_GF_Entrance,LIFT,30
 Library Extension,MainLib_GF_Entrance,STAIRS,27
 Library Extension,SunYatSenPlace_HappyPark,LIFT,38
 Library Extension,SunYatSenPlace_HappyPark,STAIRS,42
-Library Extension,SunYatSenSteps_KnowlesBuilding_1F,LIFT,63
-Library Extension,SunYatSenSteps_KnowlesBuilding_1F,STAIRS,69
 LiftLobby_NearCoffeeAcademics,SunYatSenPlace_HappyPark,FLAT,58
 LiftLobby_NearCoffeeAcademics,UStr_Upper_LiftLobby_NearInnoWing,ESCALATOR,45
 LiftLobby_NearCoffeeAcademics,UStr_Upper_LiftLobby_NearInnoWing,LIFT,43
@@ -71,8 +71,6 @@ Main Building,MainLib_GF_Entrance,LIFT,48
 Main Building,MainLib_GF_Entrance,STAIRS,48
 Main Building,SunYatSenPlace_HappyPark,LIFT,68
 Main Building,SunYatSenPlace_HappyPark,STAIRS,66
-Main Building,SunYatSenSteps_KnowlesBuilding_1F,LIFT,89
-Main Building,SunYatSenSteps_KnowlesBuilding_1F,STAIRS,87
 MainLib_2F_Entrance,MainLib_GF_Entrance,LIFT,13
 MainLib_2F_Entrance,MainLib_GF_Entrance,STAIRS,70
 MainLib_2F_Entrance,UStr_Upper_LiftLobby_NearInnoWing,FLAT,37
@@ -84,20 +82,16 @@ RaysonHTheatre_GF,RunRunSBuilding_GF_Entrance,FLAT,36
 RaysonHTheatre_GF,RunmeS_GF_Entrance,FLAT,8
 RaysonHTheatre_GF,SunYatSen_LilyPond,STAIRS,30
 RedWall,RunRunShawTower_Lift_GF,FLAT,41
-RunRunSBuilding_GF_Entrance,SunYatSenSteps_KnowlesBuilding_1F,STAIRS,53
-RunRunSBuilding_GF_Entrance,SunYatSenSteps_KnowlesBuilding_1F,STAIRS,55
+RunRunSBuilding_GF_Entrance,SunYatSenSteps_KnowlesBuilding_1F,STAIRS,54
 RunRunSBuilding_GF_Entrance,SunYatSen_LilyPond,FLAT,79
 RunRunShawTower_Lift_GF,RunRunShawTower_Lift_LGF,LIFT,17
 RunmeS_4F,RunmeS_GF_Entrance,STAIRS,88
 StephenH_GeoMuseum_Entrance,UStr_Upper_InnoWing_Entrance,FLAT,7
-SunYatSenPlace_HappyPark,SunYatSenSteps_KnowlesBuilding_1F,FLAT,22
 SunYatSenPlace_HappyPark,SunYatSenSteps_KnowlesBuilding_1F,STAIRS,51
 Swire_Building,TTTsui_Building_3F_Entrance,FLAT,15
 Swire_Building,TangChiNgong_Building,FLAT,56
 TTTsui_Building_3F_Entrance,TTTsui_Building_LG_Entrance,LIFT,48
-UStr_Lower_InnoWing_Terminal,UStr_Lower_NearHakingWong,FLAT,62
 UStr_Lower_InnoWing_Terminal,UStr_Upper_InnoWing_Entrance,STAIRS,32
 UStr_Lower_InnoWing_Terminal,UStr_Upper_LiftLobby_NearInnoWing,LIFT,9
-UStr_Lower_NearHakingWong,UStr_Upper_InnoWing_Entrance,LIFT,61
 UStr_Upper_InnoWing_Entrance,UStr_Upper_LiftLobby_NearInnoWing,FLAT,20
 UStr_Upper_InnoWing_Entrance,UStr_Upper_MTR_Exit,FLAT,75
