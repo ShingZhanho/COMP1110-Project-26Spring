@@ -59,7 +59,6 @@
         overflow-y: auto;
       }
       #details-title { font-weight: 700; margin-bottom: 6px; font-size: 13px; }
-      #details-body { }
       .detail-field { margin: 2px 0; }
       .detail-label { font-weight: 600; color: #445; }
       .edge-table { width: 100%; border-collapse: collapse; margin-top: 6px; font-size: 11px; }
@@ -84,12 +83,15 @@
         max-width: 520px;
         white-space: pre-wrap;
       }
+      .legend-section {
+        margin-top: 0;
+      }
     </style>
     <script src="sigma-bundle.min.js"></script>
   </head>
   <body>
     <div id="legend" class="panel">
-      <div class="legend-section" style="margin-top:0;">Controls</div>
+      <div class="legend-section">Controls</div>
       <div class="legend-row">Drag background: pan</div>
       <div class="legend-row">Scroll: zoom</div>
       <div class="legend-row">Drag node: relocate</div>
