@@ -1,0 +1,61 @@
+#config_panels {
+    height: 1fr;
+}
+
+#waypoints_panel, #preferences_panel, #config_panel {
+    width: 1fr;
+    height: 100%;
+    padding: 1 2;
+    border: solid $accent;
+}
+
+.panel-title {
+    text-align: center;
+    text-style: bold;
+    width: 100%;
+    padding-bottom: 1;
+}
+
+#waypoints_list {
+    height: 1fr;
+    min-height: 5;
+}
+
+.button-row {
+    height: auto;
+    width: 100%;
+}
+
+.button-row Button {
+    width: 1fr;
+}
+
+Checkbox {
+    margin: 0 1;
+}
+
+#speed_row {
+    height: auto;
+    width: 100%;
+}
+
+#speed_row Button {
+    width: auto;
+    min-width: 5;
+}
+
+#input_speed {
+    width: 1fr;
+}
+
+#lbl_speed_hint {
+    text-align: center;
+    margin-top: 1;
+    color: $text-muted;
+}
+
+#btn_go {
+    width: 100%;
+    margin: 1 2;
+    dock: bottom;
+}
