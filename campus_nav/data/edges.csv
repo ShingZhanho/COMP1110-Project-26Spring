@@ -45,7 +45,6 @@ HakingWong_Lift_Inside_4F,HakingWong_Lift_Outside_5F,STAIRS,30
 HakingWong_Lift_Inside_4F,SURestaurant,FLAT,5
 HakingWong_Lift_Outside_4F,HakingWong_Lift_Outside_5F,LIFT,18
 HakingWong_Lift_Outside_4F,UStr_Lower_InnoWing_Terminal,FLAT,62
-HakingWong_Lift_Outside_4F,UStr_Upper_InnoWing_Entrance,LIFT,61
 HakingWong_Lift_Outside_5F,UStr_Upper_MTR_Exit,FLAT,45
 HakingWong_Lift_Outside_5F,UStr_Upper_MTR_Exit,MINOR_STAIRS,29
 InnoWingTwo,RunRunSBuilding_GF_Entrance,FLAT,22
@@ -76,7 +75,7 @@ LiftLobby_NearCoffeeAcademics,UStr_Upper_LiftLobby_NearInnoWing,ESCALATOR,45
 LiftLobby_NearCoffeeAcademics,UStr_Upper_LiftLobby_NearInnoWing,LIFT,43
 MTR_C1_Exit,RedWall,LIFT,168
 MTR_C1_Exit,RunRunShawTower_Lift_LGF,ESCALATOR,170
-MainLib_2F_Entrance,MainLib_GF_Entrance,LIFT,13
+MainLib_2F_Entrance,MainLib_GF_Entrance,LIFT,53
 MainLib_2F_Entrance,MainLib_GF_Entrance,STAIRS,70
 MainLib_2F_Entrance,UStr_Upper_LiftLobby_NearInnoWing,FLAT,37
 MainLib_GF_Entrance,Main_Building,LIFT,48
