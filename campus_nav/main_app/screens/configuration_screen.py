@@ -24,6 +24,8 @@ class ConfigurationScreen(Screen):
                     yield Button("Add", id="btn_add_wp", variant="default")
                     yield Button("Remove", id="btn_remove_wp", variant="default")
                 with Horizontal(classes="button-row"):
+                    yield Button("Edit", id="btn_edit_wp", variant="default")
+                with Horizontal(classes="button-row"):
                     yield Button("▲ Up", id="btn_move_up", variant="default")
                     yield Button("▼ Down", id="btn_move_down", variant="default")
 
@@ -74,11 +76,6 @@ class ConfigurationScreen(Screen):
                 self._refresh_waypoint_list()
 
         self.app.push_screen(WaypointSelectionScreen(excluded), callback=callback)
-
-    def on_list_view_selected(self, event: ListView.Selected) -> None:
-        lv = self.query_one("#waypoints_list", ListView)
-        if lv.index is not None:
-            self._open_waypoint_selection(lv.index)
 
     # ── Preference handling ────────────────────────────────────────
 
@@ -168,6 +165,10 @@ class ConfigurationScreen(Screen):
                 self._refresh_waypoint_list()
                 new_index = len(self.app.waypoints) - 2
                 self._open_waypoint_selection(new_index)
+        elif bid == "btn_edit_wp":
+            lv = self.query_one("#waypoints_list", ListView)
+            if lv.index is not None:
+                self._open_waypoint_selection(lv.index)
         elif bid == "btn_remove_wp":
             lv = self.query_one("#waypoints_list", ListView)
             if lv.index is not None and len(self.app.waypoints) > 2:
