@@ -4,9 +4,11 @@ from textual.app import App
 
 from .app_selector import AppSelector
 from .data_visualiser import DataVisualiserApp
+from .main_app import MainApp
 
 if __name__ == "__main__":
     apps_mapping: dict[int, Callable[[], App]] = {
+        0: lambda: MainApp(),
         1: lambda: DataVisualiserApp(),
     }
 
