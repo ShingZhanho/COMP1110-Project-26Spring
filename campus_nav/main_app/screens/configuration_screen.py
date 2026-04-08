@@ -22,6 +22,9 @@ class ConfigurationScreen(Screen):
     """First screen: configure waypoints, preferences and speed multiplier."""
 
     CSS_PATH = "configuration_screen.tcss"
+    BINDINGS = [
+        ("ctrl+g", "continue", "Go"),
+    ]
 
     def compose(self) -> ComposeResult:
         yield Header()
@@ -43,6 +46,7 @@ class ConfigurationScreen(Screen):
             with Vertical(id="preferences_panel"):
                 yield Static("Preferences", classes="panel-title")
                 yield Checkbox("Avoid Stairs", id="chk_avoid_stairs")
+                yield Checkbox("Prioritise Stairs", id="chk_prioritise_stairs")
                 yield Checkbox("Avoid Escalators", id="chk_avoid_escalators")
                 yield Checkbox("Prefer Lifts", id="chk_prefer_lifts")
                 yield Checkbox("Accessible Route", id="chk_accessible")
@@ -90,17 +94,30 @@ class ConfigurationScreen(Screen):
     # ── Preference handling ────────────────────────────────────────
 
     def on_checkbox_changed(self, event: Checkbox.Changed) -> None:
+        avoid = self.query_one("#chk_avoid_stairs", Checkbox)
+        prioritise = self.query_one("#chk_prioritise_stairs", Checkbox)
+        lifts = self.query_one("#chk_prefer_lifts", Checkbox)
+        escalators = self.query_one("#chk_avoid_escalators", Checkbox)
+
         if event.checkbox.id == "chk_accessible":
-            avoid = self.query_one("#chk_avoid_stairs", Checkbox)
-            lifts = self.query_one("#chk_prefer_lifts", Checkbox)
             if event.value:
                 avoid.value = True
                 avoid.disabled = True
+                prioritise.value = False
+                prioritise.disabled = True
+                escalators.value = True
+                escalators.disabled = True
                 lifts.value = True
                 lifts.disabled = True
             else:
                 avoid.disabled = False
+                prioritise.disabled = False
+                escalators.disabled = False
                 lifts.disabled = False
+        elif event.checkbox.id == "chk_avoid_stairs" and event.value:
+            prioritise.value = False
+        elif event.checkbox.id == "chk_prioritise_stairs" and event.value:
+            avoid.value = False
         self._sync_preferences()
         self._update_go_button()
 
@@ -109,6 +126,7 @@ class ConfigurationScreen(Screen):
             avoid_stairs=self.query_one("#chk_avoid_stairs", Checkbox).value,
             avoid_escalators=self.query_one("#chk_avoid_escalators", Checkbox).value,
             prefer_lifts=self.query_one("#chk_prefer_lifts", Checkbox).value,
+            prioritise_stairs=self.query_one("#chk_prioritise_stairs", Checkbox).value,
             accessible=self.query_one("#chk_accessible", Checkbox).value,
         )
 
@@ -219,3 +237,9 @@ class ConfigurationScreen(Screen):
             from .solutions_screen import SolutionsScreen
 
             self.app.push_screen(SolutionsScreen(routes))
+
+    # ── Keyboard bindings ───────────────────────────────────────────────
+    
+    def action_continue(self) -> None:
+        if not self.query_one("#btn_go", Button).disabled:
+            self.on_button_pressed(Button.Pressed(self.query_one("#btn_go", Button)))

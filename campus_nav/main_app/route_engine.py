@@ -17,6 +17,7 @@ _SPEED_EXPONENTS: dict[EdgeType, float] = {
 
 _INF = float("inf")
 _LIFT_PREFERENCE_FACTOR = 0.5
+_STAIRS_PREFERENCE_FACTOR = 0.5
 
 
 @dataclass
@@ -24,6 +25,7 @@ class Preferences:
     avoid_stairs: bool = False
     avoid_escalators: bool = False
     prefer_lifts: bool = False
+    prioritise_stairs: bool = False
     accessible: bool = False
 
 
@@ -89,6 +91,9 @@ def _cost_fn_for_strategy(edge: Edge, speed_multiplier: float, preferences: Pref
 
     if preferences.prefer_lifts and etype == EdgeType.LIFT:
         cost *= _LIFT_PREFERENCE_FACTOR
+
+    if preferences.prioritise_stairs and etype in (EdgeType.STAIRS, EdgeType.MINOR_STAIRS):
+        cost *= _STAIRS_PREFERENCE_FACTOR
 
     return cost
 

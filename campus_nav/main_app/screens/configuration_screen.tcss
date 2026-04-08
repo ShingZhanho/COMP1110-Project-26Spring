@@ -56,6 +56,6 @@ Checkbox {
 
 #btn_go {
     width: 100%;
-    margin: 1 2;
+    margin-bottom: 1 !important;
     dock: bottom;
 }

@@ -1,5 +1,5 @@
 from textual.app import App, ComposeResult
-from textual.containers import VerticalGroup
+from textual.containers import Center, VerticalGroup
 from textual.widgets import Button, Footer, Header, Label, RadioButton, RadioSet, Rule
 
 
@@ -12,6 +12,7 @@ class AppSelector(App[int]):
 
     BINDINGS = [
         ("ctrl+q", "quit", "Exit"),
+        ("ctrl+g", "continue", "Continue"),
     ]
     CSS_PATH = "app_selector.tcss"
 
@@ -28,6 +29,12 @@ class AppSelector(App[int]):
     def action_quit(self) -> None:
         self.exit(-1)
 
+    def action_continue(self) -> None:
+        main_div = self.query_one("#main_div", AppSelector.AppSelectorContents)
+        button = main_div.query_one("#btn_continue", Button)
+        if not button.disabled:
+            main_div.on_button_pressed(Button.Pressed(button))
+
     class AppSelectorContents(VerticalGroup):
 
         _exit_code: int = 0
@@ -41,7 +48,8 @@ class AppSelector(App[int]):
                 yield RadioButton("Exit", id="rtn_exit")
             yield Label("ACTION_DESC_PLACEHOLDER", id="lbl_action_desc")
             yield Rule(line_style="heavy")
-            yield Button("Continue", id="btn_continue", variant="primary")
+            with Center():
+                yield Button("Continue", id="btn_continue", variant="primary")
 
         def on_radio_set_changed(self, event: RadioSet.Changed) -> None:
             radio_btns_mapping : dict[str, tuple[int, str]] = {

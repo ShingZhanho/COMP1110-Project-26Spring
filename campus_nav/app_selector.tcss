@@ -22,7 +22,6 @@
     width: 100%;
 }
 
-Button {
-    width: 100%;
-    margin: 0 50 0 50;
+#btn_continue {
+    width: 50%;
 }

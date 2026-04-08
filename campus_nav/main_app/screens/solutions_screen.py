@@ -12,6 +12,7 @@ class SolutionsScreen(Screen):
     """Displays the computed candidate routes."""
 
     CSS_PATH = "solutions_screen.tcss"
+    BINDINGS = [("escape", "go_back", "Back")]
 
     def __init__(self, routes: list[Route]) -> None:
         super().__init__()
@@ -51,6 +52,9 @@ class SolutionsScreen(Screen):
             from .route_details_screen import RouteDetailsScreen
 
             self.app.push_screen(RouteDetailsScreen(self._routes[idx]))
+
+    def action_go_back(self) -> None:
+        self.app.pop_screen()
 
 
 def _badge_class(label: str) -> str:
