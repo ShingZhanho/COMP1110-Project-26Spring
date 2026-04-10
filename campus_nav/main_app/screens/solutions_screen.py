@@ -33,8 +33,7 @@ class SolutionsScreen(Screen):
                             orig_str = format_time(route.total_original_cost)
                             yield Label(
                                 f"Time: {time_str} (base: {orig_str})  •  "
-                                f"Stops: {route.num_stops}  •  "
-                                f"Edges: {len(route.steps)}"
+                                f"Stops: {route.num_stops}"
                             )
                             with Horizontal(classes="badges-row"):
                                 for lbl in route.labels:
