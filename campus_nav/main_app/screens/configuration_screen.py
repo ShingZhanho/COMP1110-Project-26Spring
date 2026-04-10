@@ -45,11 +45,14 @@ class ConfigurationScreen(Screen):
             # Middle panel – preferences
             with Vertical(id="preferences_panel"):
                 yield Static("Preferences", classes="panel-title")
-                yield Checkbox("Avoid Stairs", id="chk_avoid_stairs")
-                yield Checkbox("Prioritise Stairs", id="chk_prioritise_stairs")
-                yield Checkbox("Avoid Escalators", id="chk_avoid_escalators")
-                yield Checkbox("Prefer Lifts", id="chk_prefer_lifts")
-                yield Checkbox("Accessible Route", id="chk_accessible")
+                with VerticalScroll(id="preferences_scroll"):
+                    yield Checkbox("Avoid Stairs", id="chk_avoid_stairs")
+                    yield Checkbox("Prefer Stairs", id="chk_prefer_stairs")
+                    yield Checkbox("Avoid Escalators", id="chk_avoid_escalators")
+                    yield Checkbox("Prefer Escalators", id="chk_prefer_escalators")
+                    yield Checkbox("Avoid Lifts", id="chk_avoid_lifts")
+                    yield Checkbox("Prefer Lifts", id="chk_prefer_lifts")
+                    yield Checkbox("Accessible Route", id="chk_accessible")
 
             # Right panel – configuration
             with Vertical(id="config_panel"):
@@ -94,39 +97,58 @@ class ConfigurationScreen(Screen):
     # ── Preference handling ────────────────────────────────────────
 
     def on_checkbox_changed(self, event: Checkbox.Changed) -> None:
-        avoid = self.query_one("#chk_avoid_stairs", Checkbox)
-        prioritise = self.query_one("#chk_prioritise_stairs", Checkbox)
-        lifts = self.query_one("#chk_prefer_lifts", Checkbox)
-        escalators = self.query_one("#chk_avoid_escalators", Checkbox)
+        avoid_stairs = self.query_one("#chk_avoid_stairs", Checkbox)
+        prefer_stairs = self.query_one("#chk_prefer_stairs", Checkbox)
+        avoid_esc = self.query_one("#chk_avoid_escalators", Checkbox)
+        prefer_esc = self.query_one("#chk_prefer_escalators", Checkbox)
+        avoid_lifts = self.query_one("#chk_avoid_lifts", Checkbox)
+        prefer_lifts = self.query_one("#chk_prefer_lifts", Checkbox)
 
         if event.checkbox.id == "chk_accessible":
             if event.value:
-                avoid.value = True
-                avoid.disabled = True
-                prioritise.value = False
-                prioritise.disabled = True
-                escalators.value = True
-                escalators.disabled = True
-                lifts.value = True
-                lifts.disabled = True
+                avoid_stairs.value = True
+                avoid_stairs.disabled = True
+                prefer_stairs.value = False
+                prefer_stairs.disabled = True
+                avoid_esc.value = True
+                avoid_esc.disabled = True
+                prefer_esc.value = False
+                prefer_esc.disabled = True
+                avoid_lifts.value = False
+                avoid_lifts.disabled = True
+                prefer_lifts.value = True
+                prefer_lifts.disabled = True
             else:
-                avoid.disabled = False
-                prioritise.disabled = False
-                escalators.disabled = False
-                lifts.disabled = False
-        elif event.checkbox.id == "chk_avoid_stairs" and event.value:
-            prioritise.value = False
-        elif event.checkbox.id == "chk_prioritise_stairs" and event.value:
-            avoid.value = False
+                avoid_stairs.disabled = False
+                prefer_stairs.disabled = False
+                avoid_esc.disabled = False
+                prefer_esc.disabled = False
+                avoid_lifts.disabled = False
+                prefer_lifts.disabled = False
+        elif event.value:
+            # Mutual exclusivity within each avoid/prefer pair
+            pairs = {
+                "chk_avoid_stairs": prefer_stairs,
+                "chk_prefer_stairs": avoid_stairs,
+                "chk_avoid_escalators": prefer_esc,
+                "chk_prefer_escalators": avoid_esc,
+                "chk_avoid_lifts": prefer_lifts,
+                "chk_prefer_lifts": avoid_lifts,
+            }
+            opposite = pairs.get(event.checkbox.id)
+            if opposite is not None:
+                opposite.value = False
         self._sync_preferences()
         self._update_go_button()
 
     def _sync_preferences(self) -> None:
         self.app.preferences = Preferences(
             avoid_stairs=self.query_one("#chk_avoid_stairs", Checkbox).value,
+            prefer_stairs=self.query_one("#chk_prefer_stairs", Checkbox).value,
             avoid_escalators=self.query_one("#chk_avoid_escalators", Checkbox).value,
+            prefer_escalators=self.query_one("#chk_prefer_escalators", Checkbox).value,
+            avoid_lifts=self.query_one("#chk_avoid_lifts", Checkbox).value,
             prefer_lifts=self.query_one("#chk_prefer_lifts", Checkbox).value,
-            prioritise_stairs=self.query_one("#chk_prioritise_stairs", Checkbox).value,
             accessible=self.query_one("#chk_accessible", Checkbox).value,
         )
 
