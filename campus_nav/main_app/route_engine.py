@@ -16,16 +16,17 @@ _SPEED_EXPONENTS: dict[EdgeType, float] = {
 }
 
 _INF = float("inf")
-_LIFT_PREFERENCE_FACTOR = 0.5
-_STAIRS_PREFERENCE_FACTOR = 0.5
+_PREFERENCE_FACTOR = 0.5
 
 
 @dataclass
 class Preferences:
     avoid_stairs: bool = False
+    prefer_stairs: bool = False
     avoid_escalators: bool = False
+    prefer_escalators: bool = False
+    avoid_lifts: bool = False
     prefer_lifts: bool = False
-    prioritise_stairs: bool = False
     accessible: bool = False
 
 
@@ -86,14 +87,17 @@ def _cost_fn_for_strategy(edge: Edge, speed_multiplier: float, preferences: Pref
         return _INF
     if preferences.avoid_escalators and etype == EdgeType.ESCALATOR:
         return _INF
+    if preferences.avoid_lifts and etype == EdgeType.LIFT:
+        return _INF
 
     cost = compute_adjusted_cost(edge, speed_multiplier)
 
+    if preferences.prefer_stairs and etype in (EdgeType.STAIRS, EdgeType.MINOR_STAIRS):
+        cost *= _PREFERENCE_FACTOR
+    if preferences.prefer_escalators and etype == EdgeType.ESCALATOR:
+        cost *= _PREFERENCE_FACTOR
     if preferences.prefer_lifts and etype == EdgeType.LIFT:
-        cost *= _LIFT_PREFERENCE_FACTOR
-
-    if preferences.prioritise_stairs and etype in (EdgeType.STAIRS, EdgeType.MINOR_STAIRS):
-        cost *= _STAIRS_PREFERENCE_FACTOR
+        cost *= _PREFERENCE_FACTOR
 
     return cost
 
@@ -173,17 +177,21 @@ def find_candidate_routes(
     strategies: list[Preferences] = [
         # 1. User preferences as-is
         preferences,
-        # 2. Force no stairs
+        # 2. Force avoid stairs
         Preferences(
             avoid_stairs=True,
             avoid_escalators=preferences.avoid_escalators,
+            avoid_lifts=preferences.avoid_lifts,
             prefer_lifts=preferences.prefer_lifts,
+            prefer_escalators=preferences.prefer_escalators,
         ),
         # 3. Force prefer lifts
         Preferences(
             avoid_stairs=preferences.avoid_stairs,
             avoid_escalators=preferences.avoid_escalators,
+            avoid_lifts=preferences.avoid_lifts,
             prefer_lifts=True,
+            prefer_escalators=preferences.prefer_escalators,
         ),
     ]
 

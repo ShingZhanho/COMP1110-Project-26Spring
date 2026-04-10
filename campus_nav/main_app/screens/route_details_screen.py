@@ -35,7 +35,7 @@ class RouteDetailsScreen(Screen):
             yield Static(f"[b]Route Details[/b]   {badges}", id="details_title")
             yield Static(
                 f"Total time: {format_time(self._route.total_cost)}  •  "
-                f"Stops: {self._route.num_stops}"
+                f"Stops: {self._route.num_stops}",
                 id="details_summary",
             )
             with VerticalScroll(id="steps_scroll"):

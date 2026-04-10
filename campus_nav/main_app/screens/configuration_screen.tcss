@@ -30,6 +30,10 @@
     width: 1fr;
 }
 
+#preferences_scroll {
+    height: 1fr;
+}
+
 Checkbox {
     margin: 0 1;
 }
