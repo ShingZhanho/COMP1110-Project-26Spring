@@ -25,7 +25,7 @@ Upon launching the app, you should see the following screen:
 
 ![App selector screenshot](images/screenshot_AppSelector.svg)
 
-##Each File Purpose
+## Each File Purpose
 
 
-##Sample Test Cases
+## Sample Test Cases
