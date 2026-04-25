@@ -1,9 +1,9 @@
 name: Fetch CSV Data
 
 on:
-  schedule:
-    # 00:00 UTC+8 = 16:00 UTC (previous day)
-    - cron: "0 16 * * *"
+  # schedule:
+  #   # 00:00 UTC+8 = 16:00 UTC (previous day)
+  #   - cron: "0 16 * * *"
   workflow_dispatch:
 
 permissions:
