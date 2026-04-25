@@ -33,8 +33,44 @@
 
 % BODY
 
-\section{?}
+\section{Scenario Study}
 
+For the sake of evaluating the performance of the product, several scenarios were designed to test the product's functionality and the quality of the results it produces.
+These scenarios, together with the sample input, output, and evaluation of the results, are presented in this section.
+All of the scenarios are tested on the same network graph.
 
+\subsection{Scenario 1 -- Last-minute Arrival at Campus}
+This scenario simulates a situation where a student arrives at the campus last minute just before the start of a test.
+
+\subsubsection{Scenario Assumptions}
+It is assumed that the student arrives at the MTR A2 exit at 10:55 am, and needs to get to the classroom at 1/F of the Meng Wah Complex before 11:00 am.
+
+\subsubsection{Purpose of the Scenario}
+The purpose of this scenario is to evaluate the system's ability to provide accurate and efficient navigation solutions under time pressure.
+
+\subsubsection{Inputs}
+The following parameters are input into the system (all other parameters are left as default):
+\begin{itemize}
+    \item \textbf{Starting Node}: \texttt{UStr\_Upper\_MTR\_Exit}
+    \item \textbf{Destination Node}: \texttt{MengWahComplex\_1F}
+    \item \textbf{Speed Multiplier}: 1.3 (to simulate the student rushing to the classroom with a faster pace)
+\end{itemize}
+
+\subsubsection{Outputs}
+The system generated three solutions for the scenario, which are presented in \autoref{fig:scenario-1_output-solution}.
+\begin{figure}
+    \centering
+    \includegraphics{figs/scenario-1_output-solution.pdf}
+    \caption{Output solutions for Scenario 1.}
+    \label{fig:scenario-1_output-solution}
+\end{figure}
+
+\subsubsection{Discussions}
+For this scenario, one of the main concerns is the time taken to reach the destination.
+As the student is in a rush, it would be reasonable to expect that the student would walk faster than usual.
+Existing pedestrian navigation solutions typically assume a normal walking pace and do not account for variations.
+They tend to estimate the arrival time as the user walks using past data.
+While this approach may work for later sections of the trail, it is prone to inaccuracies at the beginning.
+In contrast, our project accounts for a customisable speed multiplier, which allows the user to adjust the estimated time based on their current pace.
 
 \end{document}
