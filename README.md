@@ -42,30 +42,30 @@ Then, you can get all the routes that meet your requirements.
 You can click" "Details" to view the detail of the route.
 
 ## Each File Purpose
-### campus_nav/data 
+#### campus_nav/data 
 - The two files under this route are datas for the navigator
 
-### campus_nav/main_app/__init__.py 
+#### campus_nav/main_app/__init__.py 
 - Imports MainApp from the submodule .main_app 
-### campus_nav/main_app/__main__.py 
+#### campus_nav/main_app/__main__.py 
 - Entry point of the application
-### campus_nav/main_app/main_app.py 
+#### campus_nav/main_app/main_app.py 
 - The main window class of the navigator
-### campus_nav/main_app/main_app.tcss 
+#### campus_nav/main_app/main_app.tcss 
 - Arrange the widgets in the Screen container
-### campus_nav/main_app/route_engine.py 
+#### campus_nav/main_app/route_engine.py 
 - The routing engine of the navigator. Compute optimal campus navigation routes based on user's requirements.
 
 
-### campus_nav/models/__init__.py 
+#### campus_nav/models/__init__.py 
 - Import core classes
-### campus_nav/models/campus_map.py 
+#### campus_nav/models/campus_map.py 
 - Define the CampusMap class to represent and manage an undirected multigraph structure of the campus map
-### campus_nav/models/edge.py
+#### campus_nav/models/edge.py
 - Define the edge class, representing the connections between two nodes in the campus.
-### campus_nav/models/edge_type.py
+#### campus_nav/models/edge_type.py
 - Define the edge type class, representing the type of edge between two nodes.
-### campus_nav/models/node.py
+#### campus_nav/models/node.py
 - Define the node class, storing the information related to the nodes.
 
 
