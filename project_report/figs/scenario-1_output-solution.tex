@@ -12,7 +12,7 @@
     %%
     %%   Usage:
     %%     \node[station, label={[stlabel]right:NODE\_ID}]               (A) {};
-    %%     \node[station, label={[stlabel]right:NODE\_ID}, below=2cm of A] (B) {};
+    %%     \node[station-bold, label={[stlabel-bold]right:NODE\_ID}]     (A) {};
     %%
     station/.style={
         draw,
@@ -25,14 +25,13 @@
         line width=1.6pt,
         fill=white,
     },
-    %% stlabel-end: use on start/end nodes for emphasis.
-    %%   Usage:
-    %%     \node[station, label={[stlabel-end]right:NAME}] (A) {};
-    stlabel-end/.style={stlabel, font=\ttfamily\bfseries, color=yellow!50!black},
+    %% station-bold + stlabel-bold: use on start/end/waypoint nodes for emphasis.
+    station-bold/.style={station, line width=3pt},
     %% stlabel: monospaced name label placed to the right of the station dot.
     %%   Always pass it as the style argument to the label option:
     %%     label={[stlabel]right:NAME}
     stlabel/.style={font=\ttfamily, inner sep=2pt},
+    stlabel-bold/.style={stlabel, font=\ttfamily\bfseries},
     %% ── Base directed edge style ──────────────────────────────────────────
     %%
     %%   All per-solution styles inherit from this.
@@ -87,7 +86,7 @@
 
 %% ── Place nodes here ─────────────────────────────────────────────────────
 
-\node[station, label={[stlabel-end]right:UStr\_Upper\_MTR\_Exit}]
+\node[station-bold, label={[stlabel-bold]right:UStr\_Upper\_MTR\_Exit}]
     (UStr_Upper_MTR_Exit) {};
 \node[station, label={[stlabel]right:UStr\_Upper\_InnoWing\_Entrance}, below=30pt of UStr_Upper_MTR_Exit]
     (UStr_Upper_InnoWing_Entrance) {};
@@ -103,7 +102,7 @@
     (RunmeS_GF_Entrance) {};
 \node[station, label={[stlabel]right:RunmeS\_4F}, below right=45pt and 30 pt of RunmeS_GF_Entrance]
     (RunmeS_4F) {};
-\node[station, label={[stlabel-end]right:MengWahComplex\_1F}, below left=45pt and 30pt of RunmeS_4F]
+\node[station-bold, label={[stlabel-bold]right:MengWahComplex\_1F}, below left=45pt and 30pt of RunmeS_4F]
     (MengWahComplex_1F) {};
 
 \node[station, label={[stlabel]left:CYMAmenitiesCtr\_2F\_Entrance}, below left=17pt and 30pt of RunmeS_GF_Entrance]

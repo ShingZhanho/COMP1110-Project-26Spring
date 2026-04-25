@@ -1,3 +1,8 @@
+% !TEX program = latexmk
+% !TEX options = -shell-escape -synctex=1 -interaction=nonstopmode -file-line-error -pdf -cd -outdir=. ./COMP1110-D08-Project-Report.tex
+
+\immediate\write18{ chmod +x ./pre_build.sh && ./pre_build.sh }
+
 \documentclass[a4paper,12pt]{amsart}
 
 \input{preambles.tex}
@@ -30,6 +35,10 @@
 %%
 \date{8 April 2026}
 \maketitle
+
+% TABLE OF CONTENTS
+\setcounter{tocdepth}{2}
+\tableofcontents
 
 % BODY
 
@@ -72,5 +81,101 @@ Existing pedestrian navigation solutions typically assume a normal walking pace 
 They tend to estimate the arrival time as the user walks using past data.
 While this approach may work for later sections of the trail, it is prone to inaccuracies at the beginning.
 In contrast, our project accounts for a customisable speed multiplier, which allows the user to adjust the estimated time based on their current pace.
+
+\subsection{Scenario 2 -- Accessible Route Navigation}
+This scenario simulates a user with mobility impairment who needs to navigate across campus while avoiding all stairs and escalators.
+
+\subsubsection{Scenario Assumptions}
+It is assumed that the user arrives at the MTR C1 exit and needs to reach the K.K.\ Leung Building ground floor entrance.
+The user cannot use stairs or escalators due to mobility constraints and therefore requires a fully lift-accessible route.
+The user's walking pace is assumed to be slower than average.
+
+\subsubsection{Purpose of the Scenario}
+The purpose of this scenario is to evaluate the system's ability to generate accessible routes that strictly exclude stairs and escalators while favouring lift-equipped segments.
+This tests whether the \emph{Accessible Route} preference correctly propagates the appropriate constraints throughout the route-finding process.
+
+\subsubsection{Inputs}
+The following parameters are input into the system (all other parameters are left as default):
+\begin{itemize}
+    \item \textbf{Starting Node}: \texttt{MTR\_C1\_Exit}
+    \item \textbf{Destination Node}: \texttt{KKLeung\_Building\_GF}
+    \item \textbf{Accessible Route}: enabled (implicitly sets \emph{Avoid Stairs}, \emph{Avoid Escalators}, and \emph{Prefer Lifts})
+    \item \textbf{Speed Multiplier}: 0.7 (to simulate a slower walking pace)
+\end{itemize}
+
+\subsubsection{Outputs}
+The system generated two solutions for the scenario, which are presented in \autoref{fig:scenario-2_output-solution}.
+\begin{figure}
+    \centering
+    \includegraphics{figs/scenario-2_output-solution.pdf}
+    \caption{Output solutions for Scenario 2.}
+    \label{fig:scenario-2_output-solution}
+\end{figure}
+
+\subsubsection{Discussions}
+
+\subsection{Scenario 3 -- Multi-Stop Navigation}
+This scenario simulates a student who needs to visit an intermediate location on the way to their final destination, requiring the system to plan a route through multiple specified waypoints.
+
+\subsubsection{Scenario Assumptions}
+It is assumed that the student starts at the Composite Building ground floor and must pass through the Main Library ground floor entrance before proceeding to the Tang Chi Ngong Building as the final destination.
+No special mobility preferences are set.
+
+\subsubsection{Purpose of the Scenario}
+The purpose of this scenario is to evaluate the system's multi-waypoint route planning capability.
+Specifically, it tests whether the system correctly chains route segments across multiple stops and produces solutions that respect all intermediate waypoints in the correct order.
+
+\subsubsection{Inputs}
+The following parameters are input into the system (all other parameters are left as default):
+\begin{itemize}
+    \item \textbf{Starting Node}: \texttt{CompositeBuilding\_GF}
+    \item \textbf{Via (Intermediate Stop)}: \texttt{MainLib\_GF\_Entrance}
+    \item \textbf{Destination Node}: \texttt{TangChiNgong\_Building}
+\end{itemize}
+
+\subsubsection{Outputs}
+The system generated three solutions for the scenario, which are presented in \autoref{fig:scenario-3_output-solution}.
+\begin{figure}
+    \centering
+    \includegraphics{figs/scenario-3_output-solution.pdf}
+    \caption{Output solutions for Scenario 3.}
+    \label{fig:scenario-3_output-solution}
+\end{figure}
+
+\subsubsection{Discussions}
+
+\subsection{Scenario 4 -- Stair-Preferring Navigation at Elevated Speed}
+This scenario simulates a physically active user who explicitly prefers routes that include staircases and walks at a faster-than-normal pace.
+
+\subsubsection{Scenario Assumptions}
+It is assumed that the user starts at the MTR Upper University Street exit and needs to reach the Meng Wah Complex 1/F.
+The user chooses to use stairs wherever possible, for example to incorporate physical activity into their commute, and walks at a pace 1.5 times faster than average.
+
+\subsubsection{Purpose of the Scenario}
+The purpose of this scenario is twofold.
+First, it evaluates whether the \emph{Prefer Stairs} option successfully biases the route engine towards stair-inclusive segments.
+Second, it assesses whether an elevated speed multiplier correctly reduces estimated travel times, particularly for stair segments which are modelled with a higher speed exponent than flat segments.
+
+\subsubsection{Inputs}
+The following parameters are input into the system (all other parameters are left as default):
+\begin{itemize}
+    \item \textbf{Starting Node}: \texttt{UStr\_Upper\_MTR\_Exit}
+    \item \textbf{Destination Node}: \texttt{MengWahComplex\_1F}
+    \item \textbf{Prefer Stairs}: enabled
+    \item \textbf{Speed Multiplier}: 1.5 (to simulate a faster walking pace)
+\end{itemize}
+
+\subsubsection{Outputs}
+The system generated three solutions for the scenario, which are presented in \autoref{fig:scenario-4_output-solution}.
+\begin{figure}
+    \centering
+    \includegraphics{figs/scenario-4_output-solution.pdf}
+    \caption{Output solutions for Scenario 4.}
+    \label{fig:scenario-4_output-solution}
+\end{figure}
+
+\subsubsection{Discussions}
+
+\subsection{Overall Findings}
 
 \end{document}
