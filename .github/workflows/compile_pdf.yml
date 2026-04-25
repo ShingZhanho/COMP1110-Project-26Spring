@@ -23,7 +23,7 @@ jobs:
             out_file: COMP1110-D08-Project-Plan.pdf
           - name: project_report
             build_cmd: latexmk
-            build_args: -pdf -interaction=nonstopmode -synctex=1 -f
+            build_args: -shell-escape -pdf -interaction=nonstopmode -synctex=1 -f
             build_workdir: ./project_report
             build_file: COMP1110-D08-Project-Report.tex
             out_file: COMP1110-D08-Project-Report.pdf
