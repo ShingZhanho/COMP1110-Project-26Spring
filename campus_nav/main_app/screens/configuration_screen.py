@@ -157,7 +157,7 @@ class ConfigurationScreen(Screen):
     def _current_speed(self) -> float | None:
         try:
             val = float(self.query_one("#input_speed", Input).value)
-            return val if val > 0 else None
+            return val if 0 < val <= 1000 else None
         except ValueError:
             return None
 
@@ -165,7 +165,14 @@ class ConfigurationScreen(Screen):
         speed = self._current_speed()
         hint = self.query_one("#lbl_speed_hint", Static)
         if speed is None:
-            hint.update("[red]Invalid speed[/red]")
+            try:
+                raw = float(self.query_one("#input_speed", Input).value)
+                if raw > 1000:
+                    hint.update("[red]Max speed is 1000[/red]")
+                else:
+                    hint.update("[red]Invalid speed[/red]")
+            except ValueError:
+                hint.update("[red]Invalid speed[/red]")
         elif speed > 1:
             hint.update(f"Walking {speed:.1f}× faster")
         elif speed < 1:
@@ -185,7 +192,7 @@ class ConfigurationScreen(Screen):
         speed = self._current_speed()
         if speed is None:
             speed = 1.0
-        speed = max(0.1, round(speed + delta, 1))
+        speed = max(0.1, min(1000, round(speed + delta, 1)))
         self.query_one("#input_speed", Input).value = str(speed)
 
     # ── Go button ─────────────────────────────────────────────────
