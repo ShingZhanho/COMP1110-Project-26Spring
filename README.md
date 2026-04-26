@@ -93,19 +93,20 @@ You can click" "Details" to view the detail of the route.
 
 ## Sample Test Cases
 
-### 📍 Basic Path Planning
+### 📍Basic Path Planning
 
 | ID        | Description           | Status | Details        |
 | :-------- | :-------------------- | :----: | :------------- |
-| **TC-01** | Normal shortest path  | ✅ Pass | ⬇️ Expand below |
-| **TC-02** | Adding passing points | ✅ Pass | ⬇️ Expand below |
-| **TC-03** | Start = End           | ✅ Pass | ⬇️ Expand below |
+| **TC-01** | Normal shortest path  |   ✅    | ⬇️ Expand below |
+| **TC-02** | Adding passing points |   ✅    | ⬇️ Expand below |
+| **TC-03** | Start = End           |   ✅    | ⬇️ Expand below |
 
 <details>
-<summary><b>🔍 查看 Basic Path Planning 详细测试结果</b></summary>
+<summary><b>See detailed results in Basic Path Planning</b></summary>
 <br>
 
 **TC-01: Normal shortest path**
+
 * **Input:**
   * **Start:** `CYMAmenitiesCtr_CYMCanteen`
   * **End:** `LawLibrary`
@@ -141,15 +142,16 @@ You can click" "Details" to view the detail of the route.
 
 | ID        | Description                         | Status | Details        |
 | :-------- | :---------------------------------- | :----: | :------------- |
-| **TC-04** | Modify the walking speed multiplier | ✅ Pass | ⬇️ Expand below |
-| **TC-05** | Select one preference               | ✅ Pass | ⬇️ Expand below |
-| **TC-06** | Select more than one preference     | ✅ Pass | ⬇️ Expand below |
+| **TC-04** | Modify the walking speed multiplier |   ✅    | ⬇️ Expand below |
+| **TC-05** | Select one preference               |   ✅    | ⬇️ Expand below |
+| **TC-06** | Select more than one preference     |   ✅    | ⬇️ Expand below |
 
 <details>
-<summary><b>🔍 查看 Preferences and Configuration 详细测试结果</b></summary>
+<summary><b>See detailed results in Preferences and Configuration</b></summary>
 <br>
 
 **TC-04: Modify the walking speed multiplier**
+
 * **Input:**
   * **Start:** `Library_Extension`
   * **End:** `ChiWah_1F_North`
