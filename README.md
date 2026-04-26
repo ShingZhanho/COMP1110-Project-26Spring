@@ -92,3 +92,20 @@ You can click" "Details" to view the detail of the route.
 - **images/**: Stores image assets like screenshots used in this README.
 
 ## Sample Test Cases
+
+### Basic Path Planning
+
+| ID | Description | Input | Expected Output | Actual Result | Status |
+|----|-------------|-------|------------------|---------------|--------|
+
+### Preferences and Congiuration
+
+| ID | Description | Input | Expected Output | Actual Result | Status |
+|----|-------------|-------|------------------|---------------|--------|
+
+
+### Boundary & Exception Handling
+
+| ID | Description | Input | Expected Output | Actual Result | Status |
+|----|-------------|-------|------------------|---------------|--------|
+
