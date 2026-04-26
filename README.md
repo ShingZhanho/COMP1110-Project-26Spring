@@ -93,23 +93,91 @@ You can click" "Details" to view the detail of the route.
 
 ## Sample Test Cases
 
-### Basic Path Planning
+### 📍 Basic Path Planning
 
-| ID | Description | Input | Expected Output | Actual Result | Status |
-|----|-------------|-------|------------------|---------------|--------|
-| TC-01 | Normal shortest path | Start: CYMAmenitiesCtr_CYMCanteen, End: LawLibrary, Preferences: avoid stairs, Configuration: speed multiplier: 1.0 | Returns path, stops, edges and time (without stairs) | Three routes are output, each with a "no stairs" tag. When entering Details, the complete path can be seen, which matches reality. | ✅ Pass |
-| TC-02 | Adding passing points | Start: CYMAmenitiesCtr_CYMCanteen, passing point: KKLeung_Building_LG2F, End: Swire_Building | The output route must pass through the point KKLeung_Building_LG2F | Two routes are output. In the details, the three locations CYMAmenitiesCtr_CYMCanteen, KKLeung_Building_LG2F, and Swire_Building all appear and are marked in green. | ✅ Pass |
-| TC-03 | Start = End | Start: Bookstore, End: Bookstore | Users cannot select the same point for Start and End in the waypoint interface. | Same as expected | ✅ Pass |
+| ID        | Description           | Status | Details        |
+| :-------- | :-------------------- | :----: | :------------- |
+| **TC-01** | Normal shortest path  | ✅ Pass | ⬇️ Expand below |
+| **TC-02** | Adding passing points | ✅ Pass | ⬇️ Expand below |
+| **TC-03** | Start = End           | ✅ Pass | ⬇️ Expand below |
 
+<details>
+<summary><b>🔍 查看 Basic Path Planning 详细测试结果</b></summary>
+<br>
 
+**TC-01: Normal shortest path**
+* **Input:**
+  * **Start:** `CYMAmenitiesCtr_CYMCanteen`
+  * **End:** `LawLibrary`
+  * **Preferences:** `avoid stairs`
+  * **Config:** `speed multiplier: 1.0`
+* **Expected Output:** Returns path, stops, edges and time (without stairs).
+* **Actual Result:** Three routes are output, each with a "no stairs" tag. When entering Details, the complete path can be seen, which matches reality.
 
-### Preferences and Configuration
+---
 
-| ID | Description | Input | Expected Output | Actual Result | Status |
-|----|-------------|-------|------------------|---------------|--------|
-| TC-04 | Modify the walking speed multiplier| Start: Library_Extension, End: ChiWah_1F_North, Speed Multiplier = 1.5 | Estimated time = normal time/1.5 | When the speed multiplier is 1 (default state), the time is 1 minute and 41 seconds; when the speed multiplier is 1.5, the time is 1 minute and 7 seconds. | ✅ Pass |
-| TC-05 | Select one preference| Start: Library_Extension, End: ChiWah_1F_North, Choose "Avoid Stairs" in the preference interface | No stairs in the output routes | Output three routes. None of the three routes have stairs, and the route 1 is the fastest. | ✅ Pass |
-| TC-06 | Select more than one preference| Start: Library_Extension, End: ChiWah_1F_North, Choose "Prioritise Stair" and "Avoid Escalators"| Return routes without escalators and with stairs | Output four routes. The first route has stairs and no escalators. The other three routes also have no escalators, but due to constraints, they have no stairs either. The route 2 is the fastest.| ✅ Pass |
+**TC-02: Adding passing points**
+* **Input:**
+  * **Start:** `CYMAmenitiesCtr_CYMCanteen`
+  * **Passing Point:** `KKLeung_Building_LG2F`
+  * **End:** `Swire_Building`
+* **Expected Output:** The output route must pass through the point `KKLeung_Building_LG2F`.
+* **Actual Result:** Two routes are output. In the details, the three locations `CYMAmenitiesCtr_CYMCanteen`, `KKLeung_Building_LG2F`, and `Swire_Building` all appear and are marked in green.
+
+---
+
+**TC-03: Start = End**
+* **Input:**
+  * **Start:** `Bookstore`
+  * **End:** `Bookstore`
+* **Expected Output:** Users cannot select the same point for Start and End in the waypoint interface.
+* **Actual Result:** Same as expected.
+
+</details>
+
+<br>
+
+### ⚙️ Preferences and Configuration
+
+| ID        | Description                         | Status | Details        |
+| :-------- | :---------------------------------- | :----: | :------------- |
+| **TC-04** | Modify the walking speed multiplier | ✅ Pass | ⬇️ Expand below |
+| **TC-05** | Select one preference               | ✅ Pass | ⬇️ Expand below |
+| **TC-06** | Select more than one preference     | ✅ Pass | ⬇️ Expand below |
+
+<details>
+<summary><b>🔍 查看 Preferences and Configuration 详细测试结果</b></summary>
+<br>
+
+**TC-04: Modify the walking speed multiplier**
+* **Input:**
+  * **Start:** `Library_Extension`
+  * **End:** `ChiWah_1F_North`
+  * **Config:** `Speed Multiplier = 1.5`
+* **Expected Output:** Estimated time = normal time / 1.5.
+* **Actual Result:** When the speed multiplier is `1.0` (default state), the time is 1 minute and 41 seconds; when the speed multiplier is `1.5`, the time is 1 minute and 7 seconds.
+
+---
+
+**TC-05: Select one preference**
+* **Input:**
+  * **Start:** `Library_Extension`
+  * **End:** `ChiWah_1F_North`
+  * **Preferences:** `Avoid Stairs`
+* **Expected Output:** No stairs in the output routes.
+* **Actual Result:** Output three routes. None of the three routes have stairs, and Route 1 is the fastest.
+
+---
+
+**TC-06: Select more than one preference**
+* **Input:**
+  * **Start:** `Library_Extension`
+  * **End:** `ChiWah_1F_North`
+  * **Preferences:** `Prioritise Stair` and `Avoid Escalators`
+* **Expected Output:** Return routes without escalators and with stairs.
+* **Actual Result:** Output four routes. The first route has stairs and no escalators. The other three routes also have no escalators, but due to constraints, they have no stairs either. Route 2 is the fastest.
+
+</details>
 
 ### Boundary & Exception Handling
 
