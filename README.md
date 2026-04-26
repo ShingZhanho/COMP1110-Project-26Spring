@@ -41,6 +41,21 @@ Then, you can get all the routes that meet your requirements.
 
 You can click" "Details" to view the detail of the route.
 
+## Features
+
+### Realistic Speed Multiplier Modeling
+
+Our routing engine includes a **Speed Multiplier** feature that allows users to adjust their expected walking pace (e.g., walking 1.5x faster or 0.8x slower). However, rather than applying a flat rate to the entire journey, we explicitly modeled real-world physical constraints. 
+
+The speed multiplier mathematically affects different edge types using distinct exponents (`_SPEED_EXPONENTS`):
+
+* **Flat Paths (Exponent: 1.0):** Scales directly with the user's walking speed.
+* **Stairs (Exponent: 1.5) & Minor Stairs (Exponent: 1.3):** Highly sensitive to speed changes. This models the significant physical exertion required to climb stairs faster.
+* **Escalators (Exponent: 0.3):** Only slightly affected. While users can walk on a moving escalator to save some time, the mechanical speed of the escalator dominates the total time cost.
+* **Lifts (Exponent: 0.0):** Completely unaffected by the speed multiplier. Since a lift operates at a fixed mechanical speed, any mathematical calculation (`speed_multiplier ** 0.0`) evaluates to `1.0`, keeping the lift traversal time perfectly constant regardless of the user's pace.
+
+This design demonstrates our focus on translating everyday life phenomena into structured computational models.
+
 ## Each File Purpose
 
 #### Root Directory
@@ -166,6 +181,7 @@ You can click" "Details" to view the detail of the route.
 ---
 
 **TC-05: Select one preference**
+
 * **Input:**
   * **Start:** `Library_Extension`
   * **End:** `ChiWah_1F_North`
