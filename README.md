@@ -213,6 +213,7 @@ Designed for wheelchair users, individuals with strollers, or anyone requiring s
 ---
 
 **TC-07: Select Accessible Route**
+
 * **Input:**
   * **Start:** `Library_Extension`
   * **End:** `RedWall`
@@ -234,7 +235,9 @@ Designed for wheelchair users, individuals with strollers, or anyone requiring s
 <details>
 <summary><b>See detailed results in Boundary & Exception Handling</b></summary>
 <br>
+
 **TC-08: Unreachable destination due to strict preferences**
+
 
 * **Input:**
   * **Start:** `JockeyClubTower_Lift_GF`
