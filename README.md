@@ -159,8 +159,9 @@ You can click" "Details" to view the detail of the route.
   * **Start:** `Library_Extension`
   * **End:** `ChiWah_1F_North`
   * **Config:** `Speed Multiplier = 1.5`
-* **Expected Output:** Estimated time = normal time / 1.5.
-* **Actual Result:** When the speed multiplier is `1.0` (default state), the time is 1 minute and 41 seconds; when the speed multiplier is `1.5`, the time is 1 minute and 7 seconds.
+* **Expected Output:** The speed multiplier is designed to only affect pedestrian-dependent edges (like flat paths and stairs). Lift times remain unchanged regardless of the speed multiplier because a lift's mechanical speed is independent of the user's walking pace. In the code, this is achieved by applying an exponent of `0.0` to lift edges, making the effective multiplier constantly `1.0`. So the estimated time should not just be 2/3 of the normal estimated time.
+* **Actual Result:** When the speed multiplier is `1.0` (default state), the time is 8 minute and 45 seconds; when the speed multiplier is `1.5`, the time is 5 minute and 34 seconds.
+* **Screenshots:**![TC-4.1](images/TC-4.1)
 
 ---
 
