@@ -93,7 +93,7 @@ You can click" "Details" to view the detail of the route.
 
 ## Sample Test Cases
 
-### 📍Basic Path Planning
+### Basic Path Planning
 
 | ID        | Description           | Status | Details        |
 | :-------- | :-------------------- | :----: | :------------- |
@@ -114,6 +114,7 @@ You can click" "Details" to view the detail of the route.
   * **Config:** `speed multiplier: 1.0`
 * **Expected Output:** Returns path, stops, edges and time (without stairs).
 * **Actual Result:** Three routes are output, each with a "no stairs" tag. When entering Details, the complete path can be seen, which matches reality.
+* **Screenshots:**![TC-1](images\TC-1.png)![TC-1.1](images\TC-1.1.png)![TC-1.2](images\TC-1.2.png)
 
 ---
 
@@ -124,6 +125,7 @@ You can click" "Details" to view the detail of the route.
   * **End:** `Swire_Building`
 * **Expected Output:** The output route must pass through the point `KKLeung_Building_LG2F`.
 * **Actual Result:** Two routes are output. In the details, the three locations `CYMAmenitiesCtr_CYMCanteen`, `KKLeung_Building_LG2F`, and `Swire_Building` all appear and are marked in green.
+* **Screenshots:**![TC-2](images\TC-2.png)![TC-2.1](images\TC-2.1.png)![TC-2.2](images\TC-2.2.png)
 
 ---
 
@@ -133,12 +135,13 @@ You can click" "Details" to view the detail of the route.
   * **End:** `Bookstore`
 * **Expected Output:** Users cannot select the same point for Start and End in the waypoint interface.
 * **Actual Result:** Same as expected.
+* **Screenshots:** ![TC-3](images\TC-3.png)
 
 </details>
 
 <br>
 
-### ⚙️ Preferences and Configuration
+### Preferences and Configuration
 
 | ID        | Description                         | Status | Details        |
 | :-------- | :---------------------------------- | :----: | :------------- |
