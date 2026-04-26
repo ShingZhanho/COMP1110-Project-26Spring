@@ -117,11 +117,11 @@ Designed for wheelchair users, individuals with strollers, or anyone requiring s
 
 ### Basic Path Planning
 
-| ID        | Description           | Status | Details        |
-| :-------- | :-------------------- | :----: | :------------- |
-| **TC-01** | Normal shortest path  |   ✅    | ⬇️ Expand below |
-| **TC-02** | Adding passing points |   ✅    | ⬇️ Expand below |
-| **TC-03** | Start = End           |   ✅    | ⬇️ Expand below |
+| ID        | Description           | Status |
+| :-------- | :-------------------- | :----: |
+| **TC-01** | Normal shortest path  |   ✅    |
+| **TC-02** | Adding passing points |   ✅    |
+| **TC-03** | Start = End           |   ✅    |
 
 <details>
 <summary><b>See detailed results in Basic Path Planning</b></summary>
@@ -165,11 +165,12 @@ Designed for wheelchair users, individuals with strollers, or anyone requiring s
 
 ### Preferences and Configuration
 
-| ID        | Description                         | Status | Details        |
-| :-------- | :---------------------------------- | :----: | :------------- |
-| **TC-04** | Modify the walking speed multiplier |   ✅    | ⬇️ Expand below |
-| **TC-05** | Select one preference               |   ✅    | ⬇️ Expand below |
-| **TC-06** | Select more than one preference     |   ✅    | ⬇️ Expand below |
+| ID        | Description                         | Status |
+| :-------- | :---------------------------------- | :----: |
+| **TC-04** | Modify the walking speed multiplier |   ✅    |
+| **TC-05** | Select one preference               |   ✅    |
+| **TC-06** | Select more than one preference     |   ✅    |
+| **TC-07** | Select Accessible Route             |   ✅    |
 
 <details>
 <summary><b>See detailed results in Preferences and Configuration</b></summary>
@@ -200,6 +201,7 @@ Designed for wheelchair users, individuals with strollers, or anyone requiring s
 ---
 
 **TC-06: Select more than one preference**
+
 * **Input:**
   * **Start:** `Library_Extension`
   * **End:** `ChiWah_1F_North`
@@ -208,10 +210,61 @@ Designed for wheelchair users, individuals with strollers, or anyone requiring s
 * **Actual Result:** Output three routes. The first route has stairs and no escalators. The other two routes also have no escalators, but due to constraints, they have no stairs either. Route 2 is the fastest.
 * **Screenshots:**![TC-6](images/TC-6.png)
 
+---
+
+**TC-07: Select Accessible Route**
+* **Input:**
+  * **Start:** `Library_Extension`
+  * **End:** `RedWall`
+  * **Preferences:** `Accessible Route`
+* **Expected Output:** When `Accessible Route` is selected, the UI should automatically lock and check `Avoid Stairs`, `Avoid Escalators`, and `Prefer Lifts`. The output routes must not contain any stairs or escalators, and should prioritize lifts.
+* **Actual Result:** The UI checkboxes updated automatically. The generated routes successfully bypassed all stairs and escalators, using only flat paths and lifts. 
+* **Screenshots:**![TC-7.1](images/TC-7.1.png)![TC-7.2](images/TC-7.2.png)
+
 </details>
 
 ### Boundary & Exception Handling
 
-| ID | Description | Input | Expected Output | Actual Result | Status |
-|----|-------------|-------|------------------|---------------|--------|
+| ID        | Description                                       | Status |
+| :-------- | :------------------------------------------------ | :----: |
+| **TC-08** | Unreachable destination due to strict preferences |   ✅    |
+| **TC-09** | Extreme speed multiplier values                   |   ✅    |
+| **TC-10** | Conflicting preferences                           |   ✅    |
 
+<details>
+<summary><b>See detailed results in Boundary & Exception Handling</b></summary>
+<br>
+**TC-08: Unreachable destination due to strict preferences**
+
+* **Input:**
+  * **Start:** `JockeyClubTower_Lift_GF`
+  * **End:** `JockeyClubTower_Lift_LGF`
+  * **Preferences:** `Avoid Stairs`, `Avoid Lifts`, and `Avoid Escalators`
+* **Expected Output:** The system should not crash. It should gracefully handle the fact that `_dijkstra` returns `None` and display a user-friendly message "No routes found. Try adjusting your preferences.
+* **Actual Result:** No routes found. Try adjusting your preferences.
+* **Screenshots:** ![TC-8](images/TC-8.png)
+
+---
+
+**TC-09: Extreme speed multiplier values**
+
+* **Input:**
+  * **Start:** `Library_Extension`
+  * **End:** `ChiWah_1F_North`
+  * **Config:** `Speed Multiplier = 0.000000000000000000001`
+* **Expected Output:** The time calculation should not result in `ZeroDivisionError`. The formatting function `format_time` should handle very large numbers of seconds correctly.
+* **Actual Result:** The estimated time is correctly demonstrated.
+* **Screenshots:** ![TC-9.1](images/TC-9.1.png)![TC-9.2](images/TC-9.2.png)
+
+---
+
+**TC-10: Conflicting preferences**
+* **Input:**
+  * **Start:** `Library_Extension`
+  * **End:** `ChiWah_1F_North`
+  * **Preferences:** Select both `Prefer Stairs` and `Avoid Stairs` simultaneously.
+* **Expected Output:** The system should resolve the conflict predictably. Based on the `_cost_fn_for_strategy` logic, avoidance returns `_INF` before preference is calculated, so "Avoid" should naturally override "Prefer". The output route must not contain stairs.
+* **Actual Result:** Impossible to choose these two options at the same time.
+* **Screenshots:** ![TC-10.1](images/TC-10.1.gif)
+
+</details>
