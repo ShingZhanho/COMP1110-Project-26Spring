@@ -56,6 +56,13 @@ The speed multiplier mathematically affects different edge types using distinct 
 
 This design demonstrates our focus on translating everyday life phenomena into structured computational models.
 
+### Accessible Route Generation ♿
+Designed for wheelchair users, individuals with strollers, or anyone requiring step-free access, our application features a dedicated **Accessible Route** mode. 
+
+* **Smart Preference Overrides:** Toggling the "Accessible Route" option in the configuration screen automatically enforces strict routing constraints. It disables incompatible preferences to ensure user safety and compliance with accessibility needs.
+* **Algorithmic Graph Adjustment:** Under the hood, the routing engine dynamically updates the weights of our campus graph. Path edges with stairs (`STAIRS`, `MINOR_STAIRS`) or escalators (`ESCALATOR`) are assigned an infinite traversal cost (`_INF`), completely avoiding them during the pathfinding process.
+* **Lift Prioritization:** The Dijkstra-based pathfinding algorithm is weighted to prioritize elevators (`LIFT`) by applying a favorable `_PREFERENCE_FACTOR`, guaranteeing the most efficient step-free navigation across different campus elevations.
+
 ## Each File Purpose
 
 #### Root Directory
