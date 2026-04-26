@@ -97,12 +97,19 @@ You can click" "Details" to view the detail of the route.
 
 | ID | Description | Input | Expected Output | Actual Result | Status |
 |----|-------------|-------|------------------|---------------|--------|
+| TC-01 | Normal shortest path | Start: CYMAmenitiesCtr_CYMCanteen, End: LawLibrary A, Preferences: avoid stairs, Configuration: speed multiplier: 1.0 | Returns path, stops, edges and time (without) | Three routes are output, each with a "no stairs" tag. When entering Details, the complete path can be seen, which matches reality. | ✅ Pass |
+| TC-02 | Adding passing points | Start: CYMAmenitiesCtr_CYMCanteen, passing point: KKLeung_Building_LG2F, End: Swire_Building | The output route must pass through the point KKLeung_Building_LG2F | Two routes are output. In the details, the three locations CYMAmenitiesCtr_CYMCanteen, KKLeung_Building_LG2F, and Swire_Building all appear and are marked in green. | ✅ Pass |
+| TC-03 | Start = End | Start: Bookstore, End: Bookstore | Users cannot select the same point for Start and End in the waypoint interface. | Same as expected | ✅ Pass |
+
+
 
 ### Preferences and Configuration
 
 | ID | Description | Input | Expected Output | Actual Result | Status |
 |----|-------------|-------|------------------|---------------|--------|
-
+| TC-04 | Modify the walking speed multiplier| Start: Library_Extension, End: ChiWah_1F_North, Speed Multiplier = 1.5 | Estimated time = normal time/1.5 | When the speed multiplier is 1 (default state), the time is 1 minute and 41 seconds; when the speed multiplier is 1.5, the time is 1 minute and 7 seconds. | ✅ Pass |
+| TC-05 | Select one preference| Start: Library_Extension, End: ChiWah_1F_North, Choose "Avoid Stairs" in the preference interface | No stairs in the output routes | Output three routes. None of the three routes have stairs, and the route 1 is the fastest. | ✅ Pass |
+| TC-06 | Select more than one preference| Start: Library_Extension, End: ChiWah_1F_North, Choose "Prioritise Stair" and "Avoid Escalators"| Return routes without escalators and with stairs | Output four routes. The first route has stairs and no escalators. The other three routes also have no escalators, but due to constraints, they have no stairs either. The route 2 is the fastest.| ✅ Pass |
 
 ### Boundary & Exception Handling
 
