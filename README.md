@@ -176,7 +176,7 @@ This design demonstrates our focus on translating everyday life phenomena into s
   * **Config:** `Speed Multiplier = 1.5`
 * **Expected Output:** The speed multiplier is designed to only affect pedestrian-dependent edges (like flat paths and stairs). Lift times remain unchanged regardless of the speed multiplier because a lift's mechanical speed is independent of the user's walking pace. In the code, this is achieved by applying an exponent of `0.0` to lift edges, making the effective multiplier constantly `1.0`. So the estimated time should not just be 2/3 of the normal estimated time.
 * **Actual Result:** When the speed multiplier is `1.0` (default state), the time is 8 minute and 45 seconds; when the speed multiplier is `1.5`, the time is 5 minute and 34 seconds.
-* **Screenshots:**![TC-4.1](images/TC-4.1)
+* **Screenshots:**![TC-4.1](images/TC-4.png)
 
 ---
 
@@ -188,6 +188,7 @@ This design demonstrates our focus on translating everyday life phenomena into s
   * **Preferences:** `Avoid Stairs`
 * **Expected Output:** No stairs in the output routes.
 * **Actual Result:** Output three routes. None of the three routes have stairs, and Route 1 is the fastest.
+* **Screenshots:**![TC-5](images/TC-5.png)
 
 ---
 
@@ -195,9 +196,10 @@ This design demonstrates our focus on translating everyday life phenomena into s
 * **Input:**
   * **Start:** `Library_Extension`
   * **End:** `ChiWah_1F_North`
-  * **Preferences:** `Prioritise Stair` and `Avoid Escalators`
+  * **Preferences:** `Prefer Stair` and `Avoid Escalators`
 * **Expected Output:** Return routes without escalators and with stairs.
-* **Actual Result:** Output four routes. The first route has stairs and no escalators. The other three routes also have no escalators, but due to constraints, they have no stairs either. Route 2 is the fastest.
+* **Actual Result:** Output three routes. The first route has stairs and no escalators. The other two routes also have no escalators, but due to constraints, they have no stairs either. Route 2 is the fastest.
+* **Screenshots:**![TC-6](images/TC-6.png)
 
 </details>
 
