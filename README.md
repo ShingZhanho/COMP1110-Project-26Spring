@@ -98,7 +98,7 @@ You can click" "Details" to view the detail of the route.
 | ID | Description | Input | Expected Output | Actual Result | Status |
 |----|-------------|-------|------------------|---------------|--------|
 
-### Preferences and Congiuration
+### Preferences and Configuration
 
 | ID | Description | Input | Expected Output | Actual Result | Status |
 |----|-------------|-------|------------------|---------------|--------|
