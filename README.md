@@ -224,6 +224,8 @@ Designed for wheelchair users, individuals with strollers, or anyone requiring s
 
 </details>
 
+<br>
+
 ### Boundary & Exception Handling
 
 | ID        | Description                                       | Status |
