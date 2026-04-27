@@ -89,56 +89,56 @@
 \node[station-bold, label={[stlabel-bold]left:MTR\_C1\_Exit}]
     (MTR_C1_Exit) {};
 \node[station, label={[stlabel]left:RedWall},
-    below=30pt of MTR_C1_Exit]
+    below=20pt of MTR_C1_Exit]
     (RedWall) {};
 \node[station, label={[stlabel]left:JockeyClubTower\_Lift\_GF},
-    below=30pt of RedWall]
+    below=20pt of RedWall]
     (JockeyClubTower_Lift_GF) {};
 
 %% Sol1 spine (left column) ───────────────────────────────────────────────
 %%   JockeyClubTower_Lift_GF → JockeyClubTower_Lift_LGF → ... → MainLib_GF_Entrance
 
 \node[station, label={[stlabel]left:JockeyClubTower\_Lift\_LGF},
-    below=30pt of JockeyClubTower_Lift_GF]
+    below=20pt of JockeyClubTower_Lift_GF]
     (JockeyClubTower_Lift_LGF) {};
 \node[station, label={[stlabel]left:ChowYeiChingBuilding\_LGF},
-    below=30pt of JockeyClubTower_Lift_LGF]
+    below=20pt of JockeyClubTower_Lift_LGF]
     (ChowYeiChingBuilding_LGF) {};
 \node[station, label={[stlabel]left:CompositeBuilding\_GF},
-    below=30pt of ChowYeiChingBuilding_LGF]
+    below=20pt of ChowYeiChingBuilding_LGF]
     (CompositeBuilding_GF) {};
 \node[station, label={[stlabel]left:SURestaurant},
-    below=30pt of CompositeBuilding_GF]
+    below=20pt of CompositeBuilding_GF]
     (SURestaurant) {};
 \node[station, label={[stlabel]left:HakingWong\_Lift\_Inside\_4F},
-    below=30pt of SURestaurant]
+    below=20pt of SURestaurant]
     (HakingWong_Lift_Inside_4F) {};
 \node[station, label={[stlabel]left:HakingWong\_Lift\_Outside\_4F},
-    below=30pt of HakingWong_Lift_Inside_4F]
+    below=20pt of HakingWong_Lift_Inside_4F]
     (HakingWong_Lift_Outside_4F) {};
 \node[station, label={[stlabel]left:UStr\_Lower\_InnoWing\_Terminal},
-    below=30pt of HakingWong_Lift_Outside_4F]
+    below=20pt of HakingWong_Lift_Outside_4F]
     (UStr_Lower_InnoWing_Terminal) {};
 \node[station, label={[stlabel]left:UStr\_Upper\_LiftLobby\_NearInnoWing},
-    below=30pt of UStr_Lower_InnoWing_Terminal]
+    below=20pt of UStr_Lower_InnoWing_Terminal]
     (UStr_Upper_LiftLobby_NearInnoWing) {};  %% Sol2 also merges here
 \node[station, label={[stlabel]left:MainLib\_2F\_Entrance},
-    below=30pt of UStr_Upper_LiftLobby_NearInnoWing]
+    below=20pt of UStr_Upper_LiftLobby_NearInnoWing]
     (MainLib_2F_Entrance) {};
 \node[station, label={[stlabel]left:MainLib\_GF\_Entrance},
-    below=30pt of MainLib_2F_Entrance]
+    below=20pt of MainLib_2F_Entrance]
     (MainLib_GF_Entrance) {};
 
 %% Shared tail nodes ──────────────────────────────────────────────────────
 
 \node[station, label={[stlabel]left:SunYatSenPlace\_HappyPark},
-    below=30pt of MainLib_GF_Entrance]
+    below=20pt of MainLib_GF_Entrance]
     (SunYatSenPlace_HappyPark) {};
 \node[station, label={[stlabel]left:Knowles\_Building},
-    below=30pt of SunYatSenPlace_HappyPark]
+    below=20pt of SunYatSenPlace_HappyPark]
     (Knowles_Building) {};
 \node[station-bold, label={[stlabel-bold]left:KKLeung\_Building\_GF},
-    below=30pt of Knowles_Building]
+    below=20pt of Knowles_Building]
     (KKLeung_Building_GF) {};
 
 %% Sol1 via Lift_Between_KKLeung_Knowles (right of Knowles_Building) ──────
@@ -153,24 +153,24 @@
 %%   → LiftLobby_NearCoffeeAcademics → SunYatSenPlace_HappyPark
 
 \node[station, label={[stlabel]right:ChiWah\_Staircase},
-    below right=70pt and 80pt of JockeyClubTower_Lift_GF]
+    right=70pt of ChowYeiChingBuilding_LGF]
     (ChiWah_Staircase) {};
 \node[station, label={[stlabel]right:ChowYeiChingBuilding\_GF},
-    below=30pt of ChiWah_Staircase]
+    below=20pt of ChiWah_Staircase]
     (ChowYeiChingBuilding_GF) {};
 \node[station, label={[stlabel]right:CompositeBuilding\_1F},
-    below=30pt of ChowYeiChingBuilding_GF]
+    below=20pt of ChowYeiChingBuilding_GF]
     (CompositeBuilding_1F) {};
 \node[station, label={[stlabel]right:UStr\_Upper\_MTR\_Exit},
-    below=30pt of CompositeBuilding_1F]
+    below=20pt of CompositeBuilding_1F]
     (UStr_Upper_MTR_Exit) {};
 \node[station, label={[stlabel]right:UStr\_Upper\_InnoWing\_Entrance},
-    below=30pt of UStr_Upper_MTR_Exit]
+    below=20pt of UStr_Upper_MTR_Exit]
     (UStr_Upper_InnoWing_Entrance) {};
 
 %% Sol2: UStr_Upper_LiftLobby_NearInnoWing → LiftLobby_NearCoffeeAcademics
 \node[station, label={[stlabel]right:LiftLobby\_NearCoffeeAcademics},
-    below right=45pt and 80pt of UStr_Upper_LiftLobby_NearInnoWing]
+    below right=35pt and 80pt of UStr_Upper_LiftLobby_NearInnoWing]
     (LiftLobby_NearCoffeeAcademics) {};
 
 %% ── Edges ────────────────────────────────────────────────────────────────

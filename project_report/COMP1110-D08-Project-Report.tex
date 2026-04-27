@@ -41,6 +41,106 @@
 
 % BODY
 
+\section{Problem Definition and Modeling}
+
+\subsection{Problem Definition}
+
+The University of Hong Kong (HKU) campus occupies a steeply terraced hill in which buildings span multiple levels and are interconnected by a network of outdoor paths, staircases, escalators, lifts, and covered walkways.
+For students and staff navigating this environment daily, identifying the most suitable route between two locations is non-trivial.
+A student rushing from the MTR station to a lecture theatre before a class begins, for example, must reason about path lengths, vertical changes in elevation, and their own walking pace simultaneously.
+Similarly, a person with a mobility impairment must identify routes that are entirely free of stairs and escalators --- a constraint that standard general-purpose mapping applications do not reliably enforce at the granularity of individual campus segments.
+
+The significance of the problem is beyond mere convenience.
+Arriving late to examinations or laboratory sessions has direct academic consequences, and the inability to find accessible routes may exclude users from participating fully in campus life.
+Despite this, no dedicated pedestrian navigation tool targeting HKU's specific topology exists.
+General-purpose solutions such as Google Maps operate at a coarser spatial granularity and do not model campus-internal infrastructure such as covered linkways or building-internal lifts as distinct, traversable segments.
+
+Several challenges compound the difficulty of the problem.
+First, the path network is heterogeneous: segments differ not only in length but in \emph{type} (flat walkway, staircase, escalator, lift), and each type interacts differently with a pedestrian's speed and physical capability.
+Second, user requirements are multi-dimensional: a single query may simultaneously impose hard exclusion constraints (``no stairs''), soft preferences (``prefer lifts''), and a personalised speed parameter.
+Third, between any pair of adjacent locations there may exist multiple parallel segments of different types, forming a \emph{multigraph} structure that complicates standard shortest-path reasoning.
+Finally, routes may pass through one or more mandatory intermediate waypoints, requiring the navigation problem to be solved as a sequence of coupled sub-problems.
+
+\subsection{Problem Modeling}
+
+\subsubsection{Graph Representation}
+
+The campus is modeled as a finite, undirected multigraph
+\[
+    G = (V,\, E),
+\]
+where the vertex set $V$ represents discrete locations of interest on campus (building entrances, floor landings, transit exits, etc.), and the edge multiset $E$ represents traversable segments connecting pairs of locations.
+The multigraph formulation is necessary because two vertices may be connected by more than one edge of distinct types --- for instance, two adjacent floors of a building may be linked by both a staircase and a lift, each forming a separate edge.
+
+Each edge $e \in E$ carries two attributes: a type $\tau(e) \in \mathcal{T}$ and a base traversal time $c(e) \in \mathbb{Z}_{>0}$ measured in seconds.
+The type set is
+\begin{equation}
+    \mathcal{T} = \{\,\textsc{Flat},\; \textsc{Stairs},\; \textsc{MinorStairs},\; \textsc{Escalator},\; \textsc{Lift}\,\},
+\end{equation}
+reflecting the physical modes of traversal present on campus, where \textsc{MinorStairs} denotes flights of at most 7 steps (including the top landing but excluding the ground-level step), and other types are self-explanatory.
+
+\subsubsection{Speed-Adjusted Edge Costs}
+
+Pedestrian speed varies between individuals and circumstances.
+To model this, a scalar \emph{speed multiplier} $\sigma > 0$ is supplied by the user, where $\sigma = 1$ corresponds to an average walking pace, $\sigma > 1$ to a faster pace, and $\sigma < 1$ to a slower one.
+
+The degree to which speed affects traversal time depends on the edge type.
+Mechanical conveyances such as lifts operate at a fixed speed independent of the passenger, while climbing a staircase is far more sensitive to physical exertion than walking on flat ground.
+This is captured by a type-dependent \emph{speed exponent} $\alpha : \mathcal{T} \to \mathbb{R}_{\geq 0}$, defined as
+\begin{equation}
+    \alpha(\tau) =
+    \begin{cases}
+        1.0 & \tau = \textsc{Flat}, \\
+        1.3 & \tau = \textsc{MinorStairs}, \\
+        1.5 & \tau = \textsc{Stairs}, \\
+        0.3 & \tau = \textsc{Escalator}, \\
+        0.0 & \tau = \textsc{Lift}.
+    \end{cases}
+\end{equation}
+The \emph{adjusted cost} of traversing an edge $e$ at speed multiplier $\sigma$ is then
+\begin{equation}
+    \hat{c}(e,\sigma) = \frac{c(e)}{\sigma^{\alpha(\tau(e))}}.
+\end{equation}
+For $\alpha(\tau) = 0$ (lifts), the adjusted cost equals the base cost regardless of $\sigma$.
+For $\alpha(\tau) = 1.5$ (stairs), the adjusted cost decreases more steeply as $\sigma$ increases, reflecting the disproportionate benefit of a faster pace on elevation gain.
+
+\subsubsection{Preference-Weighted Cost Function}
+
+Users may specify a preference profile $P$, which partitions $\mathcal{T}$ into three disjoint subsets: $\mathcal{T}_{\text{avoid}}(P)$ (hard exclusions), $\mathcal{T}_{\text{prefer}}(P)$ (soft preferences), and $\mathcal{T}_{\text{neutral}}(P)$ (no preference).
+A fixed \emph{preference discount factor} $\beta \in (0, 1)$ rewards the use of preferred segment types by reducing their effective cost.
+The pathfinding cost function $w : E \to \mathbb{R}_{\geq 0} \cup \{\infty\}$ is defined as
+\begin{equation}
+    w(e, \sigma, P) =
+    \begin{cases}
+        \infty                        & \tau(e) \in \mathcal{T}_{\text{avoid}}(P), \\
+        \beta \cdot \hat{c}(e,\sigma) & \tau(e) \in \mathcal{T}_{\text{prefer}}(P), \\
+        \hat{c}(e,\sigma)             & \text{otherwise.}
+    \end{cases}
+\end{equation}
+Edges with $w = \infty$ are effectively removed from the graph during the search, enforcing hard exclusion constraints absolutely.
+
+\subsubsection{Route and Multi-Waypoint Formulation}
+
+A \emph{route} is a walk $\pi = (v_0, e_1, v_1, \ldots, e_k, v_k)$ in $G$.
+Its total weighted cost is
+\begin{equation}
+    W(\pi) = \sum_{i=1}^{k} w(e_i, \sigma, P),
+\end{equation}
+and its total displayed travel time is computed using the adjusted costs $\hat{c}$ (without the preference discount), so that the displayed time reflects true traversal duration rather than the artificial cost used to bias routing.
+
+When the user specifies $m \geq 1$ intermediate waypoints in addition to origin and destination, the full journey is decomposed into $m+1$ independent sub-problems.
+Given an ordered waypoint sequence $(w_0, w_1, \ldots, w_{m+1})$, the optimal route for each segment $[w_i, w_{i+1}]$ is found independently, and the full route is their concatenation.
+
+\subsubsection{Multi-Candidate Route Generation}
+
+Rather than returning a single optimal route, the system generates a small set of candidate routes by solving the shortest-path problem under several distinct preference profiles derived from the user's input (for example, one enforcing stair avoidance and another promoting lift usage).
+Duplicate routes, identified by equality of their ordered edge sequences, are discarded.
+The surviving candidates are then ranked and labelled according to secondary criteria such as total travel time and number of stops.
+
+\section{Surveying of Existing Solutions}
+
+\section{Core Implementation}
+
 \section{Scenario Study}
 
 For the sake of evaluating the performance of the product, several scenarios were designed to test the product's functionality and the quality of the results it produces.
@@ -202,6 +302,8 @@ Nevertheless, certain limitations were identified during testing.
 In more complex routing configurations, the system occasionally produced routes containing repeated segments, resulting in unnecessary detours.
 This issue arises from the segment-wise chaining strategy employed for multi-waypoint routes, where locally optimal sub-routes may share edges when concatenated.
 Addressing this limitation remains an area for future improvement, and would bring the system's behaviour closer to that expected of a production-grade pedestrian navigation tool.
+
+\section{Evaluation, Discussion, and Possible Improvements}
 
 \appendix
 
