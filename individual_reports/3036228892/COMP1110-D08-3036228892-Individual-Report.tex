@@ -1,0 +1,223 @@
+\documentclass[a4paper,10pt]{amsart}
+
+\usepackage[foot]{amsaddr}
+
+\usepackage{hyperref}
+\hypersetup{
+    colorlinks=true,
+    urlcolor=blue,
+    linkcolor=blue,
+}
+
+\usepackage{geometry}
+\geometry{a4paper,margin=1in}
+
+\usepackage{pdflscape}
+\usepackage{longtable}
+\usepackage{array}
+\usepackage{booktabs}
+\usepackage{diagbox}
+\setlength{\LTcapwidth}{\textwidth}
+
+\setcounter{tocdepth}{2}
+
+\usepackage{graphicx}
+
+\usepackage[htt]{hyphenat}
+
+\usepackage{listings} 
+\usepackage{xcolor}
+
+\definecolor{codegreen}{rgb}{0,0.6,0}
+\definecolor{codeblue}{rgb}{0,0,0.8}
+\definecolor{codepurple}{rgb}{0.58,0,0.82}
+\lstset{
+  basicstyle=\ttfamily, % Sets the font to monospaced
+  keywordstyle=\color{codeblue},  % Style for keywords
+  commentstyle=\color{codegreen}, % Style for comments
+  stringstyle=\color{codepurple}, % Style for strings
+  columns=fixed,         % Ensures characters align in a rigid grid
+  basewidth=0.45em,
+  numbers=left,           % Position: left, right, or none
+  numberstyle=\tiny\ttfamily, % Style: size and color
+  numbersep=5pt,          % How far the numbers are from the code
+  stepnumber=1,           % Number every line (use 2 for every second line, etc.)
+  frame=single,           % Draws a full box
+  rulecolor=\color{black}, % Border color
+  framesep=3pt,           % Padding between border and code
+  xleftmargin=15pt,       % Moves the listing right to make room for numbers
+  breaklines=true,         
+  breakindent=20pt,               % Indent the wrapped portion
+}
+
+\begin{document}
+
+% Top matter
+\title[Individual Report]{Individual Report for the Course COMP1110 -- Group D08}
+% Authors, in alphabetical order by surname
+%%
+\newcommand{\jShing}{J. Shing}
+\author[\jShing]{Zhan Ho Jacob Shing}
+\address{\jShing, BEng(CompSc), 3036228892, \href{mailto:jacobszh@connect.hku.hk}{\texttt{jacobszh@connect.hku.hk}}}
+%%
+\date{27 April 2026}
+\maketitle
+
+% BODY
+
+\section{Declaration on Usage of Artificial Intelligence}
+
+It is hereby declared that tools based on artificial intelligence and large language models were used in the development of the project and the writing of reports.
+
+\appendix
+
+\section{Prompts Used with AI}
+
+This section lists the prompts used to generate content with the assistance of AI tools, along with details of the tools used and the outputs (where appropriate).
+
+\subsection{Prompts for generating the \texttt{main\_app} module} \label{adx:main-app-prompts}
+
+\begin{itemize}
+    \item \textbf{Tool}: GitHub Copilot (Visual Studio Code extension)
+    \item \textbf{Model}: Claude Opus 4.5
+    \item \textbf{Mode of Operation}: Agent mode
+    \item \textbf{Thinking Effort}: High
+\end{itemize}
+
+The first prompt is:
+\begin{itemize}
+    \item \textbf{Prompt}:
+    \begin{quotation}
+        \ttfamily "Read and follow the instructions."
+    \end{quotation}
+    \item \textbf{Outputs}:
+    (Thinking process omitted.)
+    \begin{quotation}
+        \ttfamily "Implementation complete. Here's a summary of what was built:
+        
+        - route\_engine.py: Business logic: Dijkstra pathfinding with speed multiplier (per edge-type exponents), preference-based avoidance, and multi-waypoint routing.
+        Generates candidate routes using 4 strategies (user prefs, no stairs, prefer lifts, fewest stops) with deduplication and auto-labeling.
+
+        - main\_app.py: MainApp class holding shared state (campus map, waypoints, preferences, speed multiplier).
+
+        - screens/configuration\_screen.py – Three-panel layout: waypoint list with add/remove/move, 4 preference checkboxes (with accessible→avoid stairs + prefer lifts auto-toggle), speed multiplier $\pm$0.1 controls, and validated Go button.
+
+        - screens/waypoint\_selection\_screen.py – Alphabetically sorted list with search filter, excludes already-selected waypoints.
+
+        - screens/solutions\_screen.py – Scrollable route cards with time/stops summary and colored badges.
+
+        - screens/route\_details\_screen.py – Step-by-step waypoint list with edge type and time info.
+
+        4 incremental commits made following the feat: convention."
+    \end{quotation}
+    Files changed/created: all files under \path{campus_nav/main_app/}
+    \item \textbf{Attachments}:
+    \begin{itemize}
+        \item \texttt{INSTRUCTIONS.md}
+        
+        \lstinputlisting{appendix/INSTRUCTIONS.md}
+    \end{itemize}
+\end{itemize}
+
+Then, with a follow-up prompt:
+\begin{itemize}
+    \item \textbf{Prompt}:
+    (Exception message omitted.)
+    \begin{quotation}
+        \ttfamily "When I click on the add button, I get:
+
+        ...
+
+        BadIdentifier: 'wps\_Library Extension' is an invalid id; identifiers must contain only letters, numbers, underscores, or
+        hyphens, and must not begin with a number."
+    \end{quotation}
+    \item \textbf{Outputs}:
+    (Thinking process omitted.)
+    \begin{quotation}
+        \ttfamily "The node ID Library Extension has a space, which is invalid in Textual widget IDs.
+        I'll stop using node IDs as widget IDs and use list indices instead.
+
+        The fix was committed successfully.
+        The issue was that node IDs containing spaces (like Library Extension) were being used directly as Textual widget IDs, which only allow letters, numbers, underscores, and hyphens.
+
+        The fix tracks filtered nodes in a separate \_filtered\_nodes list and uses the ListView index to look up the corresponding node ID, avoiding widget IDs derived from node names entirely."
+    \end{quotation}
+    Files changed: \path{campus_nav/main_app/screens/waypoint_selection_screen.py}
+\end{itemize}
+
+Then, with a follow-up prompt:
+\begin{itemize}
+    \item \textbf{Prompt}:
+    \begin{quotation}
+        \ttfamily "For the waypoints list, disable the click to edit.
+        It is currently conflicting with click to select.
+        Only allow editing via the buttons.
+        
+        Add a new preference option "prioritise stairs" in the config screen"
+    \end{quotation}
+    \item \textbf{Outputs}:
+    (Thinking process omitted.)
+    \begin{quotation}
+        \ttfamily "Done.
+        Removed the on\_list\_view\_selected handler so clicking/pressing Enter on the waypoints list no longer opens the picker.
+        Added an "Edit" button that uses the currently highlighted list item to open waypoint selection.
+
+        Added "Prioritise Stairs" as a new preference.
+        It halves the cost of stair edges during pathfinding so routes with stairs are favoured.
+        It's mutually exclusive with "Avoid Stairs" and gets auto-disabled when "Accessible Route" is checked."
+    \end{quotation}
+    Files changed: \path{campus_nav/main_app/route_engine.py} and \path{campus_nav/main_app/screens/configuration_screen.py}
+\end{itemize}
+
+Finally:
+\begin{itemize}
+    \item \textbf{Prompt}:
+    \begin{quotation}
+        \ttfamily "For the accessible path option, escalators should be avoided.
+        And, for screens that have a back button, add a keyboard binding for the button.
+        For the app selector, the confirm button is not centered correctly, fix it."
+    \end{quotation}
+    \item \textbf{Outputs}:
+    (Thinking process omitted.)
+    \begin{quotation}
+        \ttfamily "Now I have all the context.
+        Three changes needed:
+
+        Accessible path: also avoid escalators - set avoid\_escalators checkbox when accessible is toggled
+        Back button bindings: add escape binding on SolutionsScreen and RouteDetailsScreen
+        App selector button: the margin: 0 50 0 50 is too large and not truly centered - use align instead
+        Three changes applied:
+
+        Accessible route now also checks "Avoid Escalators" and disables it (alongside avoid stairs / prefer lifts)
+        Escape key bound to go back on both SolutionsScreen and RouteDetailsScreen
+        App selector button centering fixed - switched from margin: 0 50 to width: 50\% with align-horizontal: center"
+    \end{quotation}
+    Files changed: \path{campus_nav/main_app/screens/configuration_screen.py}, \path{campus_nav/main_app/screens/solutions_screen.py}, \path{campus_nav/main_app/screens/route_details_screen.py}
+\end{itemize}
+
+\subsection{Prompts for generating TikZ template} \label{adx:tikz-template-prompt}
+\begin{itemize}
+    \item \textbf{Tool}: GitHub Copilot (Visual Studio Code extension)
+    \item \textbf{Model}: Claude Sonnet 4.6
+    \item \textbf{Mode of Operation}: Agent mode
+    \item \textbf{Thinking Effort}: High
+\end{itemize}
+
+The prompt is:
+\begin{itemize}
+    \item \textbf{Prompt}:
+    \begin{quotation}
+        \ttfamily "Help me setup an easy to use template in this file that I can copy to other figures.
+        I need to draw diagrams to represent the solutions that my project has produced.
+        You should define styles for nodes (I need at least a dot and the node name in monospaced fonts).
+        There might be parallel paths between nodes so the nodes need to be a wide rouded corner rect. with two ends being semi circles (basically like a railway map).
+        Also define styles for directed edges.
+        Each edge can also take extra text information next to it.
+        Since I will be presenting multiple solutions generated by my project in one single figure for the same set of inputs, you need to define multiple sets of edge styles (diff colours will be enough) for me to easily use."
+    \end{quotation}
+    \item \textbf{Outputs}:
+    The following template file was generated:
+    \lstinputlisting[language={[LaTeX]TeX}]{appendix/solution-diagram-template.tex}
+\end{itemize}
+
+\end{document}
