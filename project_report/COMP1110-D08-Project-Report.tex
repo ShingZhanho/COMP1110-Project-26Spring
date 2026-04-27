@@ -112,6 +112,10 @@ The system generated two solutions for the scenario, which are presented in \aut
 \end{figure}
 
 \subsubsection{Discussions}
+For this scenario, the main concern is ensuring a barrier-free path for a user with mobility constraints.
+Since the user must avoid all stairs and escalators, it is reasonable to assume they may at a slower pace than average.
+Existing pedestrian navigation solutions often prioritize the shortest geometric distance and frequently overlook specific accessibility barriers for users with slower walking speeds.
+In contrast, our project includes an ``Accessible Route'' preference that strictly avoid escalator-required route and utilises a customisable speed multiplier to provide an accurate time estimate tailored to the user's actual pace.
 
 \subsection{Scenario 3 -- Multi-Stop Navigation}
 This scenario simulates a student who needs to visit an intermediate location on the way to their final destination, requiring the system to plan a route through multiple specified waypoints.
@@ -142,6 +146,10 @@ The system generated three solutions for the scenario, which are presented in \a
 \end{figure}
 
 \subsubsection{Discussions}
+For this scenario, the primary focus is the system's ability to plan a cohesive route through multiple intermediate waypoints.
+As students often need to visit locations like the library before heading to a classroom, the navigation must account for specific stops in a precise order.
+Existing pedestrian navigation solutions typically treat multi-stop navigation as a series of independent, point-to-point trips, which can lead to inefficient routing at the transition nodes.
+In contrast, our project features a multi-waypoint planning capability that correctly chains route segments across all stops, ensuring the system produces solutions that respect the user's specific sequence of destinations while maintaining overall efficiency.
 
 \subsection{Scenario 4 -- Stair-Preferring Navigation at Elevated Speed}
 This scenario simulates a physically active user who explicitly prefers routes that include staircases and walks at a faster-than-normal pace.
@@ -174,8 +182,26 @@ The system generated three solutions for the scenario, which are presented in \a
 \end{figure}
 
 \subsubsection{Discussions}
+For this scenario, the main concern is catering to a user who explicitly prefers stairs and maintains a fast pace.
+As the user incorporates physical activity into their commute, it is reasonable to expect they would walk significantly faster than usual.
+Existing pedestrian navigation solutions typically assume a preference for flat terrain and a normal pace.
+They tend to default to the easiest route and neglect specific requirements from users.
+In contrast, our project provides a ``Prefer Stairs'' option and an elevated speed multiplier to accurately reflect travel times for active users.
 
-\subsection{Overall Findings} Yay
+However, as displayed on the output solutions, the system has included two other routes that contain no stairs.
+While this is an intended behaviour as the ``Prefer'' preference profile only biases the route search algorithm rather than enforcing a hard constraint, it may be confusing for users who expect solutions with stairs.
+For future improvement, a visual prompt that reminds users of the possibility of non-stair routes may be added to the output page to clarify the situation.
+
+\subsection{Overall Findings}
+Across all four scenarios, the system demonstrated a consistent ability to accommodate user-specific preferences and constraints that are seldom addressed by general-purpose navigation applications.
+The preference system proved effective in producing routes tailored to diverse user needs.
+The speed multiplier further distinguished the system from conventional navigation tools by enabling personalised travel time estimates that reflect individual walking pace rather than relying on population-level averages.
+The multi-waypoint capability was likewise validated, with the system correctly chaining route segments through ordered intermediate stops while preserving overall route coherence.
+
+Nevertheless, certain limitations were identified during testing.
+In more complex routing configurations, the system occasionally produced routes containing repeated segments, resulting in unnecessary detours.
+This issue arises from the segment-wise chaining strategy employed for multi-waypoint routes, where locally optimal sub-routes may share edges when concatenated.
+Addressing this limitation remains an area for future improvement, and would bring the system's behaviour closer to that expected of a production-grade pedestrian navigation tool.
 
 \appendix
 
