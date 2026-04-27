@@ -54,7 +54,7 @@
 \node[draw, thick, fill=black!80, text=white,
       rounded rectangle, rounded rectangle arc length=180,
       minimum width=3.0cm, minimum height=0.7cm]
-    (exitnode) at (12, -4.2) {Exit};
+    (exitnode) at (11, -4.2) {Exit};
 
 %% AppSelector
 \node[draw, thick, fill=blue!12, rectangle,
@@ -128,7 +128,7 @@
     node[lbl, midway, right] {Navigator};
 
 %% choice → DataVisualiserApp
-\draw[arrv] (choice.west) -- (2.5, -4.2) -- (2.5, -6.5) node[lbl, midway, right] {Visualiser} -- (visapp.east);
+\draw[arrv] (choice.west) -- (1.8, -4.2) -- (1.8, -6.05) node[lbl, midway, right] {Visualiser};
 
 %% ─── Navigator flow ────────────────────────────────────────────────────────
 
@@ -152,7 +152,7 @@
 
 %% SolutionsScreen → RouteDetailsScreen  (east)
 \draw[arr] (solutions.east) -- (details.west)
-    node[lbl, midway, above] {View Details};
+    node[lbl, midway, above] {Details};
 
 %% RouteDetailsScreen → SolutionsScreen  (back)
 %%   from details.south drop to y=-11.4, left to x=7.8, up into solutions.east
@@ -170,7 +170,7 @@
 %%   Right side spine: from mainapp.east x=7.5, right to x=8.5,
 %%   up to y=-2.0, into selector.east
 \draw[arr]
-    (mainapp.east) -- (8.5, -6.5) node[lbl, pos=0.4, below] {Quit} -- (8.5, -2.0) -- (selector.east);
+    (mainapp.east) -- (13.0, -6.5) node[lbl, pos=0.4, below] {Quit} -- (13.0, -2.0) -- (selector.east);
 
 %% ─── Visualiser flow ────────────────────────────────────────────────────────
 \draw[arrv] (visapp) -- (guiproc);
@@ -197,7 +197,7 @@
     \node[blue!50, font=\footnotesize\bfseries] at (8.1, -5.5) {Navigator App};
 
     \filldraw[draw=gray!50, fill=gray!6, thick, rounded corners=6pt]
-        (-3.2, -5.8) rectangle (2.2, -11.3);
+        (-2.7, -5.8) rectangle (2.2, -11.3);
     \node[gray!60, font=\footnotesize\bfseries] at (-0.5, -5.5) {Data Visualiser (helper)};
 \end{scope}
 
