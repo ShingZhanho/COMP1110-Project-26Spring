@@ -470,9 +470,77 @@ In more complex routing configurations, the system occasionally produced routes 
 This issue arises from the segment-wise chaining strategy employed for multi-waypoint routes, where locally optimal sub-routes may share edges when concatenated.
 Addressing this limitation remains an area for future improvement, and would bring the system's behaviour closer to that expected of a production-grade pedestrian navigation tool.
 
-\section{Evaluation, Discussion, and Possible Improvements}
+\section{Evaluation, Limitations, and Possible Improvements}
 
-\bibliography{references}
+\subsection{Evaluation}
+
+The system was evaluated through a structured set of ten test cases, organised into three categories: basic path planning (TC-01 to TC-03), preferences and configuration (TC-04 to TC-07), and boundary and exception handling (TC-08 to TC-10).
+The test cases cover a representative range of user interactions, including normal shortest-path queries, multi-waypoint routes, the accessible route mode, the speed multiplier, extreme input values, and conflicting or unsatisfiable preference configurations.
+All ten test cases passed, with actual outputs matching expected behaviour in each case.
+The full test case descriptions, inputs, expected outputs, actual results, and screenshots are documented in the project's \texttt{README.md}.
+
+\subsection{Limitations}
+
+Despite the passing test results, several limitations of the current system were identified.
+
+\subsubsection{Errors in Traversal Time Measurement}
+
+The base traversal times stored in \texttt{edges.csv} were collected by group members physically walking each segment and measuring the elapsed time.
+This process introduces unavoidable human variability: different members walked at different natural paces, and even a single member's pace varies between measurements depending on fatigue, crowd density at the time of measurement, and the precision of the timing method used.
+As a result, the base traversal times may not be internally consistent across the dataset, and any route cost computed from them carries an inherent margin of error.
+
+\subsubsection{Insufficient Data Variation for Route Diversity}
+
+The multi-strategy candidate generation was designed to return up to four distinct routes per query by running the pathfinding algorithm under different preference profiles.
+In practice, however, the campus graph is relatively sparse in some areas, meaning that many pairs of nodes have only one or two distinct paths between them regardless of the preference profile applied.
+When this occurs, the deduplication step discards the redundant candidates, and fewer routes are returned than expected.
+Users are therefore sometimes presented with only one or two options rather than a full set of alternatives, which limits the usefulness of the multi-candidate design in those parts of the campus.
+
+\subsubsection{No Support for Real-Time Infrastructure Status}
+
+The system has no mechanism to account for infrastructure that is temporarily out of service.
+Lifts and escalators on the HKU campus are periodically shut down for maintenance, and certain paths may be closed during construction or special events.
+Because the graph is a static snapshot loaded from a CSV file, such closures cannot be reflected at runtime.
+A user who has been routed through a lift that is currently under maintenance will only discover the problem upon arrival, which is precisely the kind of friction the system was intended to eliminate.
+
+\subsubsection{Route Repetition in Multi-Waypoint Queries}
+
+As noted in the Scenario Study section, the multi-waypoint routing strategy decomposes the journey into independent segment-wise sub-problems.
+Because each segment is optimised independently, the optimal path for one segment may share edges with the optimal path for an adjacent segment, resulting in the user being directed to retrace steps they have already walked.
+This is a structural limitation of the greedy chaining approach and cannot be resolved without a more sophisticated global optimisation strategy.
+
+\subsubsection{No Consideration of Time-of-Day or Crowd Conditions}
+
+The traversal times in the dataset reflect measurements taken at a particular time and under particular crowd conditions.
+In reality, heavily trafficked corridors during peak hours (such as just before or after lectures) may take significantly longer to traverse than the recorded values suggest.
+The system currently has no way to model time-dependent edge weights.
+
+\subsection{Possible Improvements}
+
+Several directions for future improvement follow naturally from the limitations above.
+
+\subsubsection{Standardised Data Collection Protocol}
+
+A more rigorous data collection protocol --- for example, requiring each segment to be walked by at least two members independently, with the recorded time taken as the average --- would reduce inter-member variability and improve the internal consistency of the base traversal times.
+Alternatively, a calibration pass in which a single reference member re-walks a subset of edges measured by others could be used to normalise the dataset post-hoc.
+
+% \subsubsection{Real-Time Infrastructure Status Integration}
+
+% A small web service or manually maintained status file could be introduced to flag edges as temporarily unavailable.
+% On startup, the application could fetch this status and assign infinite traversal cost to any flagged edge before running the route engine.
+% This would allow the system to gracefully route around lift outages or path closures without requiring a full data rebuild.
+
+\subsubsection{Global Multi-Waypoint Optimisation}
+
+The segment-wise chaining approach could be replaced or supplemented by a post-processing step that detects and removes repeated edge sequences from the concatenated route.
+For a small number of waypoints (as constrained by the current maximum of five), an exhaustive check of all permutations of intermediate waypoints would also be computationally tractable, allowing the system to find the globally optimal visit order rather than assuming the user-specified order is optimal.
+
+\subsubsection{Time-Dependent Edge Weights}
+
+If traversal time measurements were collected at multiple times of day (e.g., peak and off-peak), the graph model could be extended to store multiple time-dependent weights per edge.
+The route engine could then select the appropriate weight based on the current time, producing more accurate estimates during busy periods.
+
+\bibliography{References}
 
 \appendix
 \section{Revised Task Assignment}
