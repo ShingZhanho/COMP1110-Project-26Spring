@@ -27,6 +27,12 @@ jobs:
             build_workdir: ./project_report
             build_file: COMP1110-D08-Project-Report.tex
             out_file: COMP1110-D08-Project-Report.pdf
+          - name: individual_report_3036228892
+            build_cmd: latexmk
+            build_args: -pdf -interaction=nonstopmode -synctex=1 -f
+            build_workdir: ./individual_reports/3036228892
+            build_file: COMP1110-D08-3036228892-Individual-Report.tex
+            out_file: COMP1110-D08-3036228892-Individual-Report.pdf
     steps:
       - name: Checkout code
         uses: actions/checkout@v6
