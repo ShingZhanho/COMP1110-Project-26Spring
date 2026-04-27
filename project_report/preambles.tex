@@ -18,3 +18,30 @@
 \setlength{\LTcapwidth}{\textwidth}
 
 \setcounter{tocdepth}{2}
+
+\usepackage{graphicx}
+
+\usepackage[lite]{amsrefs}
+
+\usepackage{listings} 
+\usepackage{xcolor}
+
+\definecolor{codegreen}{rgb}{0,0.6,0}
+\definecolor{codeblue}{rgb}{0,0,0.8}
+\definecolor{codepurple}{rgb}{0.58,0,0.82}
+\lstset{
+  basicstyle=\ttfamily, % Sets the font to monospaced
+  keywordstyle=\color{codeblue},  % Style for keywords
+  commentstyle=\color{codegreen}, % Style for comments
+  stringstyle=\color{codepurple}, % Style for strings
+  columns=fixed,         % Ensures characters align in a rigid grid
+  basewidth=0.45em,
+  numbers=left,           % Position: left, right, or none
+  numberstyle=\tiny\ttfamily, % Style: size and color
+  numbersep=5pt,          % How far the numbers are from the code
+  stepnumber=1,           % Number every line (use 2 for every second line, etc.)
+  frame=single,           % Draws a full box
+  rulecolor=\color{black}, % Border color
+  framesep=3pt,           % Padding between border and code
+  xleftmargin=15pt,       % Moves the listing right to make room for numbers
+}

@@ -66,9 +66,9 @@ Finally, routes may pass through one or more mandatory intermediate waypoints, r
 \subsubsection{Graph Representation}
 
 The campus is modeled as a finite, undirected multigraph
-\[
+\begin{equation} \label{eq:graph}
     G = (V,\, E),
-\]
+\end{equation}
 where the vertex set $V$ represents discrete locations of interest on campus (building entrances, floor landings, transit exits, etc.), and the edge multiset $E$ represents traversable segments connecting pairs of locations.
 The multigraph formulation is necessary because two vertices may be connected by more than one edge of distinct types --- for instance, two adjacent floors of a building may be linked by both a staircase and a lift, each forming a separate edge.
 
@@ -87,7 +87,7 @@ To model this, a scalar \emph{speed multiplier} $\sigma > 0$ is supplied by the 
 The degree to which speed affects traversal time depends on the edge type.
 Mechanical conveyances such as lifts operate at a fixed speed independent of the passenger, while climbing a staircase is far more sensitive to physical exertion than walking on flat ground.
 This is captured by a type-dependent \emph{speed exponent} $\alpha : \mathcal{T} \to \mathbb{R}_{\geq 0}$, defined as
-\begin{equation}
+\begin{equation} \label{eq:speed_exponent}
     \alpha(\tau) =
     \begin{cases}
         1.0 & \tau = \textsc{Flat}, \\
@@ -98,7 +98,7 @@ This is captured by a type-dependent \emph{speed exponent} $\alpha : \mathcal{T}
     \end{cases}
 \end{equation}
 The \emph{adjusted cost} of traversing an edge $e$ at speed multiplier $\sigma$ is then
-\begin{equation}
+\begin{equation} \label{eq:adjusted_cost}
     \hat{c}(e,\sigma) = \frac{c(e)}{\sigma^{\alpha(\tau(e))}}.
 \end{equation}
 For $\alpha(\tau) = 0$ (lifts), the adjusted cost equals the base cost regardless of $\sigma$.
@@ -109,7 +109,7 @@ For $\alpha(\tau) = 1.5$ (stairs), the adjusted cost decreases more steeply as $
 Users may specify a preference profile $P$, which partitions $\mathcal{T}$ into three disjoint subsets: $\mathcal{T}_{\text{avoid}}(P)$ (hard exclusions), $\mathcal{T}_{\text{prefer}}(P)$ (soft preferences), and $\mathcal{T}_{\text{neutral}}(P)$ (no preference).
 A fixed \emph{preference discount factor} $\beta \in (0, 1)$ rewards the use of preferred segment types by reducing their effective cost.
 The pathfinding cost function $w : E \to \mathbb{R}_{\geq 0} \cup \{\infty\}$ is defined as
-\begin{equation}
+\begin{equation} \label{eq:weighted_cost}
     w(e, \sigma, P) =
     \begin{cases}
         \infty                        & \tau(e) \in \mathcal{T}_{\text{avoid}}(P), \\
@@ -123,7 +123,7 @@ Edges with $w = \infty$ are effectively removed from the graph during the search
 
 A \emph{route} is a walk $\pi = (v_0, e_1, v_1, \ldots, e_k, v_k)$ in $G$.
 Its total weighted cost is
-\begin{equation}
+\begin{equation} \label{eq:route_cost}
     W(\pi) = \sum_{i=1}^{k} w(e_i, \sigma, P),
 \end{equation}
 and its total displayed travel time is computed using the adjusted costs $\hat{c}$ (without the preference discount), so that the displayed time reflects true traversal duration rather than the artificial cost used to bias routing.
@@ -140,6 +140,173 @@ The surviving candidates are then ranked and labelled according to secondary cri
 \section{Surveying of Existing Solutions}
 
 \section{Core Implementation}
+
+\subsection{System Architecture Overview}
+The project is constructed with a layered and modular architecture, as illustrated in \autoref{fig:system-architecture}.
+The project enforces principles of objected-oriented programming throughout its design, with some utility functions implemented in a functional style to avoid boilerplate code and improve readability.
+The design allows a clear separation of data representation, data parsing, route-finding business logic, and state management of the user interface, which facilitates maintainability of the codebase.
+
+\begin{figure}[htbp]
+    \centering
+    \includegraphics{figs/system-arch-layout.pdf}
+    \caption{System architecture diagram.}
+    \label{fig:system-architecture}
+\end{figure}
+
+As for the technical stack, the project is implemented in Python 3.13, with its terminal user interface built using the \texttt{Textual}\cite{textual} library.
+
+\subsection{Data Model}
+The entities required by \autoref{eq:graph} are represented by three classes: \texttt{Node} ($v$), \texttt{Edge} ($e$), and \texttt{CampusMap} ($G$).
+The core attributes and their relationships are illustrated in \autoref{fig:model-class-diagram}.
+Each class comes with a set of methods for constructing instances, accessing attributes, and performing relevant operations.
+These classes together represent a undirected multigraph, which allows multiple edges of different edge types between the same pair of nodes.
+
+\begin{figure}[htbp]
+    \centering
+    \includegraphics[width=\textwidth]{figs/model-class-diagram.pdf}
+    \caption{Class diagram of the data model.}
+    \label{fig:model-class-diagram}
+\end{figure}
+
+\subsection{Data Collection, Representation, and Validation}
+
+For implementing this project, the group has divided the campus into 4 zones for distributing labour.
+Each zone is assigned to a member, who is responsible for defining the nodes within the zone.
+After finalising the nodes, the member will then walk between the nodes and measure the time taken to traverse each edge (measured in seconds) and record the data on a shared Google Sheet document.
+One of the members is responsible for measuring the time taken between nodes that fall in different zones, and the data is recorded in the same Google Sheet document.
+To ensure consistency and reliability of the data, the group has agreed on a standardised method for measuring traversal times and an acceptable range of walking paces.
+
+The data on Google Sheets is fetched automatically by a GitHub Action workflow daily.
+The workflow calls \texttt{fetch\_csv\_from\_google\_sheet()} defined in \texttt{campus\_nav/utils.py}.
+This function converts the spreadsheet data into a CSV format.
+The two CSV files are \texttt{campus\_nav/data/nodes.csv} and \texttt{campus\_nav/data/edges.csv}.
+Their schemas are defined in \autoref{lst:nodes_csv_schema} and \autoref{lst:edges_csv_schema}, respectively.
+
+In particular, to make the nodes and edges be more consistent, they are defined in a way that all of the entries can be deterministically sorted.
+Nodes are sorted by their \texttt{node\_id} in lexicographical order.
+For edges, in the normalisation process, the two incident nodes are compared, such that \texttt{node1} is always lexicographically sorted before \texttt{node2}.
+Then, the edges are sorted by the tuple (\texttt{node1}, \texttt{node2}, \texttt{edge\_type}, \texttt{time\_cost}) in lexicographical/numerical order.
+The serialisation codes enforce these sorting rules.
+
+\begin{lstlisting}[caption={CSV Schema for \texttt{nodes.csv}},float=htbp,label={lst:nodes_csv_schema}]
+version 1.1
+@totalColumns 2
+
+"node_id":          notEmpty unique
+"node_description":
+\end{lstlisting}
+
+\begin{lstlisting}[caption={CSV Schema for \texttt{edges.csv}},float=htbp,label={lst:edges_csv_schema}]
+version 1.1
+@totalColumns 4
+
+"node_1_id":  notEmpty
+"node_2_id":  notEmpty
+"edge_type":  notEmpty is("FLAT", "STAIRS", "MINOR_STAIRS", "ESCALATOR", "LIFT")
+"time_cost":  notEmpty positiveInteger
+\end{lstlisting}
+
+\subsection{Route Engine}
+
+The route engine is the core of the navigation system.
+Given a campus map, an ordered list of waypoints, a set of user preferences, and a speed multiplier, it is responsible for computing a set of candidate routes for the user to choose from.
+The engine is implemented entirely in \texttt{campus\_nav/main\_app/route\_engine.py} as a collection of pure functions, with no dependency on any UI component.
+
+\subsubsection{Representing User Preferences}
+
+User preferences are encapsulated in the \texttt{Preferences} dataclass, whose fields correspond directly to the options exposed in the configuration screen.
+Each field is a boolean flag, grouped into three pairs: avoid/prefer stairs, avoid/prefer escalators, and avoid/prefer lifts.
+A separate \texttt{accessible} flag acts as a master toggle that implicitly enables stair and escalator avoidance and lift preference.
+
+\subsubsection{Computing Edge Costs}
+
+The cost assigned to an edge during pathfinding implements the model described in the Problem Modeling section.
+First, the base traversal time $c(e)$ is adjusted for the user's walking speed using \autoref{eq:adjusted_cost}, where $\sigma$ is the speed multiplier and $\alpha(\tau)$ is the type-dependent speed exponent defined in \autoref{eq:speed_exponent}.
+This is implemented directly in \texttt{compute\_adjusted\_cost()} (\autoref{lst:adjusted_cost_computation}).
+
+\begin{lstlisting}[language=python,caption={Speed-adjusted edge cost computation},float=htbp,label={lst:adjusted_cost_computation}]
+_SPEED_EXPONENTS = {
+    EdgeType.FLAT: 1.0,
+    EdgeType.STAIRS: 1.5,
+    EdgeType.MINOR_STAIRS: 1.3,
+    EdgeType.ESCALATOR: 0.3,
+    EdgeType.LIFT: 0.0,
+}
+
+def compute_adjusted_cost(edge, speed_multiplier):
+    exponent = _SPEED_EXPONENTS[edge.edge_type]
+    return edge.time_cost / (speed_multiplier ** exponent)
+\end{lstlisting}
+
+The preference-weighted cost function $w(e, \sigma, P)$ from \autoref{eq:weighted_cost} is then applied on top.
+Hard avoidance constraints are enforced by returning infinity for the forbidden edge types, which effectively removes them from consideration.
+Soft preferences reduce the cost of favoured edge types by a factor of $\beta = 0.5$, making them appear cheaper to the pathfinding algorithm and therefore more likely to be included in the result.
+
+\subsubsection{Pathfinding with Dijkstra's Algorithm}
+
+The \texttt{\_dijkstra()} function finds the lowest-cost path between two nodes in the campus map.
+It implements \emph{Dijkstra's algorithm}, a classic and well-known method for finding the shortest path in a graph with non-negative edge weights.
+
+The algorithm works by maintaining a \emph{priority queue}.
+It starts at the source node with a cost of zero, and repeatedly picks the unvisited node with the lowest known cost so far.
+For each such node, it checks all its neighbouring edges: if travelling via the current node would reach a neighbour at a lower cost than previously known, the neighbour's cost is updated and it is added to the priority queue.
+This process repeats until the destination node is reached.
+The path is then reconstructed by tracing back through a \texttt{prev} dictionary, which records how each node was reached.
+
+\begin{lstlisting}[language=Python,caption={Core loop of Dijkstra's algorithm},float=htbp,label={lst:dijkstra_core_loop}]
+while pq:
+    d, u = heapq.heappop(pq)    # pick lowest-cost node
+    if d > dist[u]:
+        continue                # skip if already processed
+    if u == end_id:
+        break                   # reached destination
+    for edge in nodes[u].get_edges():
+        v = edge.get_other_node_of(nodes[u]).node_id
+        c = cost_fn(edge)
+        if c >= _INF:
+            continue            # skip forbidden edges
+        if d + c < dist[v]:
+            dist[v] = d + c
+            prev[v] = (u, edge)
+            heapq.heappush(pq, (d + c, v))
+\end{lstlisting}
+
+The cost function is passed in as an argument (\texttt{cost\_fn}), which allows the same algorithm to be reused for different routing strategies without any modification.
+
+\subsubsection{Multi-Waypoint Support}
+
+When the user specifies intermediate waypoints, the route is decomposed into segments as described in the Problem Modeling section.
+The function \texttt{\_find\_route()} iterates over each consecutive pair of waypoints and runs Dijkstra's algorithm independently for each segment.
+The resulting steps are concatenated to form the complete route, and the total adjusted cost is computed as the sum of the adjusted costs of all steps.
+
+\subsubsection{Multi-Strategy Candidate Generation}
+
+Rather than returning a single route, \texttt{find\_candidate\_routes()} runs the pathfinding algorithm under four different preference configurations to produce a diverse set of options:
+\begin{enumerate}
+    \item The user's own preferences, as configured.
+    \item A variant with stair avoidance forced on, encouraging the use of lifts and escalators.
+    \item A variant with lift preference forced on, favouring lift-equipped paths.
+    \item A \emph{fewest-stops} variant, where all passable edges are assigned a uniform cost of 1 regardless of traversal time, so that Dijkstra minimises the number of hops rather than total time.
+\end{enumerate}
+After running all four strategies, any duplicate routes --- identified by comparing their full ordered sequences of edges --- are discarded.
+The surviving unique routes are then labelled based on their properties: the route with the lowest total time receives the \emph{Fastest} label; the route with the fewest steps receives the \emph{Fewest Stops} label; and routes are additionally tagged to indicate whether they contain stairs, lifts, or escalators.
+
+\subsection{User Interface}
+
+The user interface is implemented using the \texttt{Textual} library, which provides a framework for building terminal-based applications with a modern, responsive design.
+The app launches into an \texttt{AppSelector}, where the user can choose to launch the navigation app or the data visualisation app.
+The navigation app is where the main functionality of the project is implemented, and it is orchestrated by several screens, each focusing on a specific task.
+The data visualisation app is only a helper for development and \textbf{is not} part of this project.
+The flow of the user interface is illustrated in \autoref{fig:ui-flow}.
+
+\begin{figure}[htbp]
+    \centering
+    \includegraphics[width=\textwidth]{figs/ui-flow.pdf}
+    \caption{User interface flow diagram.}
+    \label{fig:ui-flow}
+\end{figure}
+
+Note that the data visualisation app requires a graphical environment to run and will fail if launched in a headless terminal (e.g., via SSH on HKU's Ubuntu servers).
 
 \section{Scenario Study}
 
@@ -166,7 +333,7 @@ The following parameters are input into the system (all other parameters are lef
 
 \subsubsection{Outputs}
 The system generated three solutions for the scenario, which are presented in \autoref{fig:scenario-1_output-solution}.
-\begin{figure}
+\begin{figure}[htbp]
     \centering
     \includegraphics{figs/scenario-1_output-solution.pdf}
     \caption{Output solutions for Scenario 1.}
@@ -204,7 +371,7 @@ The following parameters are input into the system (all other parameters are lef
 
 \subsubsection{Outputs}
 The system generated two solutions for the scenario, which are presented in \autoref{fig:scenario-2_output-solution}.
-\begin{figure}
+\begin{figure}[htbp]
     \centering
     \includegraphics{figs/scenario-2_output-solution.pdf}
     \caption{Output solutions for Scenario 2.}
@@ -238,9 +405,9 @@ The following parameters are input into the system (all other parameters are lef
 
 \subsubsection{Outputs}
 The system generated three solutions for the scenario, which are presented in \autoref{fig:scenario-3_output-solution}.
-\begin{figure}
+\begin{figure}[htbp]
     \centering
-    \includegraphics{figs/scenario-3_output-solution.pdf}
+    \includegraphics[width=0.9\textwidth]{figs/scenario-3_output-solution.pdf}
     \caption{Output solutions for Scenario 3.}
     \label{fig:scenario-3_output-solution}
 \end{figure}
@@ -274,7 +441,7 @@ The following parameters are input into the system (all other parameters are lef
 
 \subsubsection{Outputs}
 The system generated three solutions for the scenario, which are presented in \autoref{fig:scenario-4_output-solution}.
-\begin{figure}
+\begin{figure}[htbp]
     \centering
     \includegraphics{figs/scenario-4_output-solution.pdf}
     \caption{Output solutions for Scenario 4.}
@@ -305,8 +472,12 @@ Addressing this limitation remains an area for future improvement, and would bri
 
 \section{Evaluation, Discussion, and Possible Improvements}
 
-\appendix
+\bibliography{references}
 
+\appendix
 \section{Revised Task Assignment}
+
+The workload assignment planned in the project's plan has been revised as the project progressed.
+As of the end of the project, the workload distribution is as follows:
 
 \end{document}
