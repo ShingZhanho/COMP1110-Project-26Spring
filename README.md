@@ -25,31 +25,37 @@ Upon launching the app, you should see the following screen:
 
 ![App selector screenshot](images/screenshot_AppSelector.svg)
 
-Click "continue" to access to the navigator
+Click **"Continue"** to access to the navigator
 
 You can set your waypoints, preferences and configuration in the interface
+
 <details>
   <summary>screen</summary>
    <img src="images/TC-9.1.png" alt="TC-9.1">
 </details> 
-For the "waypoints" part, you can use "Edit" to set the start point and end point. And you can use "Add" and "Remove" to add and remove passing points.
 
-For the "Preferences" part, you can choose your preference here. After you choose the preference, the "X" will turn to green.
+For the **"Waypoints"** part, you can use **"Edit"** to set the start point and end point. And you can use **"Add"** and **"Remove"** to add and remove passing points.
 
-For the "Configuration" part, you can set your relative walking speed here.
+For the **"Preferences"** part, you can choose your preference here. After you choose the preference, the **"X"** will turn to green.
 
-After setting all the things here, you can click "go" in the bottom.
+For the **"Configuration"** part, you can set your relative walking speed here.
+
+After setting all the things here, you can click **"go"** in the bottom.
 
 Then, you can get all the routes that meet your requirements.
+
 <details>
   <summary>screen</summary>
   <img src="images/TC-4.png" alt="TC-4.1">
 </details>
-You can click" "Details" to view the detail of the route.
+
+You can click" **"Details"** to view the detail of the route.
+
 <details>
   <summary>screen</summary>
    <img src="images/TC-1.1.png" alt="TC-1.1">
 </details> 
+
 ## Features
 
 ### Realistic Speed Multiplier Modeling
