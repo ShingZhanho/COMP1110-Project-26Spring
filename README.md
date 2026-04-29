@@ -30,7 +30,7 @@ Click "continue" to access to the navigator
 You can set your waypoints, preferences and configuration in the interface
 ![TC-9.1](images/TC-9.1.png)
 
-For the "waypoints" part, you can use "Edit" to set the start point and end point. And you can use "ADD" and "Remove" to add and remove passing points.
+For the "waypoints" part, you can use "Edit" to set the start point and end point. And you can use "Add" and "Remove" to add and remove passing points.
 
 For the "Preferences" part, you can choose your preference here. After you choose the preference, the "X" will turn to green.
 
