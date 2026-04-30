@@ -1,0 +1,74 @@
+\begingroup
+
+% Cell contents are defined here
+
+% Google Maps
+\newcommand{\gMapsTargetUsers}{Any users, especially users who are trying to find a location that is on the street.}
+\newcommand{\gMapsKeyFeatures}{Provide a real-time instruction from the current location to the destination.}
+\newcommand{\gMapsMissingFeatures}{Poor performance in multiplicity floors, such as the HKU campus or a mall.}
+\newcommand{\gMapsAssumptions}{None.}
+
+% Citymapper
+\newcommand{\citymapperTargetUsers}{Users who prefer to direct them from one place to another.}
+\newcommand{\citymapperKeyFeatures}{Provide suggestions displayed with fare and expected time in a list.}
+\newcommand{\citymapperMissingFeatures}{Poor translation due to the software being originally in English.}
+\newcommand{\citymapperAssumptions}{None.}
+
+% MTR Mobile
+\newcommand{\mtrMobileTargetUsers}{Users who want to travel by MTR.}
+\newcommand{\mtrMobileKeyFeatures}{Provide the estimated time of the train and its start/end service times.}
+\newcommand{\mtrMobileMissingFeatures}{Only station-to-station, but not available to handle arbitrary locations.}
+\newcommand{\mtrMobileAssumptions}{Assume the user only takes MTR and travels from station to station.}
+
+% HKUBUS.app
+\newcommand{\hkubusTargetUsers}{Users who want to take a bus or a minibus.}
+\newcommand{\hkubusKeyFeatures}{Provide the estimated waiting time for the next bus.}
+\newcommand{\hkubusMissingFeatures}{Unable to locate where you are and direct you to the bus station.}
+\newcommand{\hkubusAssumptions}{Assume users only take the bus instead of other modes of transportation, such as the MTR.}
+
+% HKU campus map
+\newcommand{\hkuMapTargetUsers}{Users who may be interested in HKU or will go to HKU later.}
+\newcommand{\hkuMapKeyFeatures}{Provide a map for building on campus with names labeled.}
+\newcommand{\hkuMapMissingFeatures}{Static map and unable to show 3D structure.}
+\newcommand{\hkuMapAssumptions}{None.}
+
+% On-campus signage
+\newcommand{\signageTargetUsers}{Users on campus who are finding a building.}
+\newcommand{\signageKeyFeatures}{Show where the signs are and the nearby path and building on campus.}
+\newcommand{\signageMissingFeatures}{Static map, unable to direct the user to where they want.}
+\newcommand{\signageAssumptions}{Assume users will only travel within campus.}
+
+\begin{xltabular}{0.9\linewidth}{l Y Y Y Y}
+    % -- First Head (only the first page) --
+    \caption{Overall comparison of the existing solutions.}\label{tab:overall-comparison}\\
+    \toprule
+    \diagbox{\textbf{Solution}}{\textbf{Aspect}} & \textbf{Target Users} & \textbf{Key Features} & \textbf{Missing Features} & \textbf{Assumptions} \\
+    \midrule
+    \endfirsthead
+
+    % -- Subsequent Heads (for following pages) --
+    \multicolumn{5}{c}{Table\ \thetable. \textit{Continued from last page.}} \\[1em]
+    \toprule
+    \diagbox{\textbf{Solution}}{\textbf{Aspect}} & \textbf{Target Users} & \textbf{Key Features} & \textbf{Missing Features} & \textbf{Assumptions} \\
+    \midrule
+    \endhead
+
+    % -- Foot (for all but the last page) --
+    \midrule
+    \multicolumn{5}{r}{\textit{Continued on next page.}} \\
+    \endfoot
+
+    % -- Last Foot (for the last page) --
+    \bottomrule
+    \endlastfoot
+
+    % -- Body --
+    Google Maps & \gMapsTargetUsers & \gMapsKeyFeatures & \gMapsMissingFeatures & \gMapsAssumptions \\ \midrule
+    Citymapper & \citymapperTargetUsers & \citymapperKeyFeatures & \citymapperMissingFeatures & \citymapperAssumptions \\ \midrule
+    MTR Mobile & \mtrMobileTargetUsers & \mtrMobileKeyFeatures & \mtrMobileMissingFeatures & \mtrMobileAssumptions \\ \midrule
+    HKUBUS.app & \hkubusTargetUsers & \hkubusKeyFeatures & \hkubusMissingFeatures & \hkubusAssumptions \\ \midrule
+    HKU campus map & \hkuMapTargetUsers & \hkuMapKeyFeatures & \hkuMapMissingFeatures & \hkuMapAssumptions \\ \midrule
+    On-campus signage & \signageTargetUsers & \signageKeyFeatures & \signageMissingFeatures & \signageAssumptions \\
+\end{xltabular}
+
+\endgroup

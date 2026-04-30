@@ -1,0 +1,82 @@
+\begingroup
+
+% Cell contents are defined here
+
+% Google Maps
+\newcommand{\gMapsETA}{Provided ETA with multiple methods, calculated dynamically with the current situation. }
+\newcommand{\gMapsFairDisplay}{No fare display.}
+\newcommand{\gMapsTransferHandling}{Able to handle any transfer, even if some distance needs to be walked.}
+\newcommand{\gMapsAccessibilityInfo}{Provided accessibility mode to avoid stairs and prioritize the lift.}
+\newcommand{\gMapsOfflineAvailability}{No route planning function when offline.}
+
+% Citymapper
+\newcommand{\citymapperETA}{Provided ETA with multiple methods.}
+\newcommand{\citymapperFairDisplay}{{Provided adult fares for multiple methods.
+
+Taxi fare is estimated by driving time.}}
+\newcommand{\citymapperTransferHandling}{Able to handle any transfer, even if some distance needs to be walked.}
+\newcommand{\citymapperAccessibilityInfo}{No accessibility info.}
+\newcommand{\citymapperOfflineAvailability}{Unable to use it offline.}
+
+% MTR Mobile
+\newcommand{\mtrMobileETA}{Provided ETA with multiple methods, estimated by maximum waiting time.}
+\newcommand{\mtrMobileFairDisplay}{Adult fare is displayed, while others can be checked.}
+\newcommand{\mtrMobileTransferHandling}{Able to handle any transfer, only within MTR stations or light rail.}
+\newcommand{\mtrMobileAccessibilityInfo}{Able to display accessibility facilities for multiple kinds of accessibility needs, such as those of the visually impaired.}
+\newcommand{\mtrMobileOfflineAvailability}{No route planning function when offline.}
+
+% HKUBUS.app
+\newcommand{\hkubusETA}{ETA must be checked by checking different paths one by one.}
+\newcommand{\hkubusFairDisplay}{Adult fare is displayed separately for different paths, and you need to sum them up to get a total.}
+\newcommand{\hkubusTransferHandling}{At most one transfer is allowed. Able to handle at most 500m walking distance.}
+\newcommand{\hkubusAccessibilityInfo}{No accessibility info.}
+\newcommand{\hkubusOfflineAvailability}{Unable to use it offline.}
+
+% HKU campus map
+\newcommand{\hkuMapETA}{No ETA provided.}
+\newcommand{\hkuMapFairDisplay}{No fare display.}
+\newcommand{\hkuMapTransferHandling}{No transfer handling.}
+\newcommand{\hkuMapAccessibilityInfo}{No accessibility info.}
+\newcommand{\hkuMapOfflineAvailability}{The web version is unavailable offline, but the PDF version can be used offline.}
+
+% On-campus signage
+\newcommand{\signageETA}{No ETA provided.}
+\newcommand{\signageFairDisplay}{No fare display.}
+\newcommand{\signageTransferHandling}{No transfer handling.}
+\newcommand{\signageAccessibilityInfo}{No accessibility info.}
+\newcommand{\signageOfflineAvailability}{Not applicable.}
+
+\begin{xltabular}{0.9\linewidth}{l Y Y Y Y Y}
+    % -- First Head (only the first page) --
+    \caption{Comparison of existing solutions on specific aspects.}\label{tab:detailed-comparison}\\
+    \toprule
+    \diagbox{\textbf{Solution}}{\textbf{Aspect}} & \textbf{Estimated Time of Arrival (ETA)} & \textbf{Fair Display} & \textbf{Transfer Handling} & \textbf{Accessibility Info} & \textbf{Offline Availability} \\
+    \midrule
+    \endfirsthead
+
+    % -- Subsequent Heads (for following pages) --
+    \multicolumn{6}{c}{Table\ \thetable. \textit{Continued from last page.}} \\[1em]
+    \toprule
+    \diagbox{\textbf{Solution}}{\textbf{Aspect}} & \textbf{Estimated Time of Arrival (ETA)} & \textbf{Fair Display} & \textbf{Transfer Handling} & \textbf{Accessibility Info} & \textbf{Offline Availability} \\
+    \midrule
+    \endhead
+
+    % -- Foot (for all but the last page) --
+    \midrule
+    \multicolumn{6}{r}{\textit{Continued on next page.}} \\
+    \endfoot
+
+    % -- Last Foot (for the last page) --
+    \bottomrule
+    \endlastfoot
+
+    % -- Body --
+    Google Maps & \gMapsETA & \gMapsFairDisplay & \gMapsTransferHandling & \gMapsAccessibilityInfo & \gMapsOfflineAvailability \\ \midrule
+    Citymapper & \citymapperETA & \citymapperFairDisplay & \citymapperTransferHandling & \citymapperAccessibilityInfo & \citymapperOfflineAvailability \\ \midrule
+    MTR Mobile & \mtrMobileETA & \mtrMobileFairDisplay & \mtrMobileTransferHandling & \mtrMobileAccessibilityInfo & \mtrMobileOfflineAvailability \\ \midrule
+    HKUBUS.app & \hkubusETA & \hkubusFairDisplay & \hkubusTransferHandling & \hkubusAccessibilityInfo & \hkubusOfflineAvailability \\ \midrule
+    HKU campus map & \hkuMapETA & \hkuMapFairDisplay & \hkuMapTransferHandling & \hkuMapAccessibilityInfo & \hkuMapOfflineAvailability \\ \midrule
+    On-campus signage & \signageETA & \signageFairDisplay & \signageTransferHandling & \signageAccessibilityInfo & \signageOfflineAvailability \\
+\end{xltabular}
+
+\endgroup

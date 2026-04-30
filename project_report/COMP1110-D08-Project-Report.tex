@@ -61,7 +61,7 @@ Second, user requirements are multi-dimensional: a single query may simultaneous
 Third, between any pair of adjacent locations there may exist multiple parallel segments of different types, forming a \emph{multigraph} structure that complicates standard shortest-path reasoning.
 Finally, routes may pass through one or more mandatory intermediate waypoints, requiring the navigation problem to be solved as a sequence of coupled sub-problems.
 
-\subsection{Problem Modeling}
+\subsection{Problem Modeling} \label{sec:problem-modeling}
 
 \subsubsection{Graph Representation}
 
@@ -139,6 +139,21 @@ The surviving candidates are then ranked and labelled according to secondary cri
 
 \section{Surveying of Existing Solutions}
 
+As planned, six existing solutions for navigation, grouped into three categories, were surveyed and evaluated on different aspects.
+The solutions are first compared in an overall manner in \autoref{tab:overall-comparison}, and then compared in a more detailed manner with focus on specific features in \autoref{tab:detailed-comparison}.
+
+The three categories of solutions surveyed are: (1) general-purpose navigation applications, represented by Google Maps and Citymapper; (2) transit-specific applications, represented by MTR Mobile and HKUBUS.app; and (3) static campus reference tools, represented by the HKU campus map and on-campus signage.
+The general-purpose navigation applications provide dynamic estimated times of arrival, multi-modal transfer handling, and city-scale route planning, but both perform poorly in multi-floor environments such as the HKU campus and operate exclusively online.
+The transit-specific applications are limited in scope to their respective transport modes: MTR Mobile supports only station-to-station queries within the MTR and light rail network, while HKUBUS.app restricts users to at most one bus transfer and cannot locate the user or direct them to the nearest bus stop.
+Both transit apps also require a live network connection.
+The static campus reference tools --- the HKU campus map and on-campus signage --- provide a visual overview of building locations and nearby paths, but are non-interactive, offer no route direction or estimated arrival time, and are inherently unable to adapt to a user's starting point or destination.
+
+The surveying exercise informed several concrete design decisions for this project.
+The station-based topology of transit apps, in which discrete named stops are connected by typed transport links, was adopted as the foundational data model, resulting in the node-and-edge multigraph representation described in \autoref{sec:problem-modeling}.
+The accessibility mode offered by Google Maps --- which avoids stairs and promotes lift usage --- motivated the \emph{Accessible Route} preference toggle and the hard-exclusion mechanism in the cost function.
+The route suggestion display of Citymapper, which presents fare and expected time for each option in a compact list, informed the design of the route card display, where each candidate route is accompanied by a time estimate, stop count, and a salient label indicating its primary characteristic.
+Finally, the dependence of all surveyed online solutions on live network connectivity, contrasted with the offline availability of the HKU campus map PDF, motivated the decision to bundle a static copy of the campus dataset within the application, ensuring full functionality in offline or restricted-network environments.
+
 \section{Core Implementation}
 
 \subsection{System Architecture Overview}
@@ -146,14 +161,20 @@ The project is constructed with a layered and modular architecture, as illustrat
 The project enforces principles of objected-oriented programming throughout its design, with some utility functions implemented in a functional style to avoid boilerplate code and improve readability.
 The design allows a clear separation of data representation, data parsing, route-finding business logic, and state management of the user interface, which facilitates maintainability of the codebase.
 
+\begin{landscape}
+    \input{tables/surveying-overall.tex}
+    
+    \input{tables/surveying-detailed.tex}
+\end{landscape}
+
+As for the technical stack, the project is implemented in Python 3.13, with its terminal user interface built using the \texttt{Textual}\cite{textual} library.
+
 \begin{figure}[htbp]
     \centering
     \includegraphics{figs/system-arch-layout.pdf}
     \caption{System architecture diagram.}
     \label{fig:system-architecture}
 \end{figure}
-
-As for the technical stack, the project is implemented in Python 3.13, with its terminal user interface built using the \texttt{Textual}\cite{textual} library.
 
 \subsection{Data Model}
 The entities required by \autoref{eq:graph} are represented by three classes: \texttt{Node} ($v$), \texttt{Edge} ($e$), and \texttt{CampusMap} ($G$).
@@ -542,7 +563,7 @@ The route engine could then select the appropriate weight based on the current t
 
 \bibliography{References}
 
-\appendix
+\appendix \clearpage
 \section{Revised Task Assignment}
 
 The workload assignment planned in the project's plan has been revised as the project progressed.
