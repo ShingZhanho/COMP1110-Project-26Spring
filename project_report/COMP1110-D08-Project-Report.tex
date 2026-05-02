@@ -13,23 +13,23 @@
 \title[Final Report]{Final Report for the Course COMP1110 -- Group D08}
 % Authors, in alphabetical order by surname
 %%
-\newcommand{\cBanh}{C. Banh}
+\newcommand{\cBanh}{C. Banh\ }
 \author[\cBanh]{Chun Hei Banh}
 \address{\cBanh, BEng(Elite/AI\&DataSc), 3036570233, \href{mailto:kbch@connect.hku.hk}{\texttt{kbch@connect.hku.hk}}}
 %
-\newcommand{\sLiu}{S. Liu}
+\newcommand{\sLiu}{S. Liu\ }
 \author[\sLiu]{Sze Pok Liu}
 \address{\sLiu, BEng(AI\&DataSc), 3036589454, \href{mailto:u3658945@connect.hku.hk}{\texttt{u3658945@connect.hku.hk}}}
 %
-\newcommand{\jShing}{J. Shing}
+\newcommand{\jShing}{J. Shing\ }
 \author[\jShing]{Zhan Ho Jacob Shing}
 \address{\jShing, BEng(CompSc), 3036228892, \href{mailto:jacobszh@connect.hku.hk}{\texttt{jacobszh@connect.hku.hk}}}
 %
-\newcommand{\yYe}{Y. Ye}
+\newcommand{\yYe}{Y. Ye\ }
 \author[\yYe]{Yubing Ye}
 \address{\yYe, BEng(CompSc), 3036291502, \href{mailto:u3629150@connect.hku.hk}{\texttt{u3629150@connect.hku.hk}}}
 %
-\newcommand{\yZhang}{Y. Zhang}
+\newcommand{\yZhang}{Y. Zhang\ }
 \author[\yZhang]{Yikun Zhang}
 \address{\yZhang, BEng(CompSc), 3036482333, \href{mailto:pzdmmsd@connect.hku.hk}{\texttt{pzdmmsd@connect.hku.hk}}}
 %%
@@ -162,8 +162,11 @@ The project enforces principles of objected-oriented programming throughout its 
 The design allows a clear separation of data representation, data parsing, route-finding business logic, and state management of the user interface, which facilitates maintainability of the codebase.
 
 \begin{landscape}
+    \vspace*{4em}
     \input{tables/surveying-overall.tex}
+    \clearpage
     
+    \vspace*{1em}
     \input{tables/surveying-detailed.tex}
 \end{landscape}
 
@@ -567,6 +570,60 @@ The route engine could then select the appropriate weight based on the current t
 \section{Revised Task Assignment}
 
 The workload assignment planned in the project's plan has been revised as the project progressed.
-As of the end of the project, the workload distribution is as follows:
+As of the end of the project, the workload distribution by each member is declared as follows:
+
+The contributions declared by \textbf{\cBanh} are:
+\begin{itemize}
+    \item Survey existing navigation solutions and compare them in a table format.
+    \item Problem modeling for our solution: definition of the type of nodes, measuring method.
+    \item Data collection: collect data in between other team members' assigned zones.
+    \item Provide suggestion and recommendation of displaying UI and useful modes in the program.
+    \item Data cleaning: cleaning up messy data in the Google Sheet.
+\end{itemize}
+
+The contributions declared by \textbf{\sLiu} are:
+\begin{itemize}
+    \item Be responsible for data collection of a specific region, recorded the time and distance data between several different destinations.
+    \item Data recording: settled and arranged a part of recorded data, provided resources for coding and modeling.
+    \item Checking the program by verifying the accuracy through the comparison with reality, provide related possible solutions and potential improvement for different cases.
+\end{itemize}
+
+The contributions declared by \textbf{\jShing} are:
+\begin{itemize}
+    \item \textbf{Problem Modelling}:
+        Came up with the rough idea of modelling the campus with the common approach of a graph.
+        Afterwards, finalised more details on the graph representation (e.g., undirected/directed graph, simple graph/multigraph, attributes that edges and nodes should have, etc.) and implemented the fundamental data classes in Python.
+    \item \textbf{Core Implementation}:
+        Was responsible for implementing the core functionality of the Navigator app, including the design of UI/UX and the code of the pathfinding engine.
+        Apart from coding, ``implementation'' also includes deciding on the technical stack, project architecture, development workflow, etc.
+    \item \textbf{Data Collection}:
+        Responsible for collecting traversal time data for several buildings, including Meng Wah Complex, Chong Yuet Ming Amenities Centre, Chong Yuet Ming Physics/Chemistry Building, etc.
+    \item \textbf{Report Writing}:
+        For the final report, was responsible for writing the sections on problem definition and implementation details.
+    \item \textbf{Typesetting}:
+        While other parts of the report were written by other members, they were written on a shared Google Docs file.
+        To maintain a consistent style and format across the report, and provide a more professional presentation, was responsible for typesetting the entire report in \LaTeX.
+\end{itemize}
+
+The contributions declared by \textbf{\yYe} are:
+\begin{itemize}
+    \item Collaborated on organising a list of tasks for accomplishing the project.
+    \item Assisted with problem modelling for the solution.
+    \item Contributed to data collection.
+    \item Made a draft of the project timeline.
+    \item Wrote \path{README.md}, including sections on ``How to Use'', ``Purposes of Each File'', and ``Sample Test Cases''.
+    \item Executed test cases and evaluated the results.
+\end{itemize}
+
+The contributions declared by \textbf{\yZhang} are:
+\begin{itemize}
+    \item Choose key places in the campus to be the nodes in our model.
+    \item Partially collected real-world walking times between campus buildings.
+    \item Analysed the data requirements and theoretically verified the logical feasibility of our journey-generation approach before coding.
+    \item Conducted edge-case testing on the Python app.
+    \item Authored the \path{README.md}, detailing the setup, test cases, and some of the purposes of code files in the repository.
+\end{itemize}
+
+The group has reviewed the above declared contributions and unanimously agrees that they are a fair and accurate representation of each member's contributions to the project.
 
 \end{document}
