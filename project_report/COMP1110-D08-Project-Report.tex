@@ -41,7 +41,7 @@
 
 % BODY
 
-\section{Problem Definition and Modeling}
+\section{Problem Definition and Modelling}
 
 \subsection{Problem Definition}
 
@@ -61,11 +61,11 @@ Second, user requirements are multi-dimensional: a single query may simultaneous
 Third, between any pair of adjacent locations there may exist multiple parallel segments of different types, forming a \emph{multigraph} structure that complicates standard shortest-path reasoning.
 Finally, routes may pass through one or more mandatory intermediate waypoints, requiring the navigation problem to be solved as a sequence of coupled sub-problems.
 
-\subsection{Problem Modeling} \label{sec:problem-modeling}
+\subsection{Problem Modelling} \label{sec:problem-modeling}
 
 \subsubsection{Graph Representation}
 
-The campus is modeled as a finite, undirected multigraph
+The campus is modelled as a finite, undirected multigraph
 \begin{equation} \label{eq:graph}
     G = (V,\, E),
 \end{equation}
@@ -158,7 +158,7 @@ Finally, the dependence of all surveyed online solutions on live network connect
 
 \subsection{System Architecture Overview}
 The project is constructed with a layered and modular architecture, as illustrated in \autoref{fig:system-architecture}.
-The project enforces principles of objected-oriented programming throughout its design, with some utility functions implemented in a functional style to avoid boilerplate code and improve readability.
+The project enforces principles of object-oriented programming throughout its design, with some utility functions implemented in a functional style to avoid boilerplate code and improve readability.
 The design allows a clear separation of data representation, data parsing, route-finding business logic, and state management of the user interface, which facilitates maintainability of the codebase.
 
 \begin{landscape}
@@ -244,7 +244,7 @@ A separate \texttt{accessible} flag acts as a master toggle that implicitly enab
 
 \subsubsection{Computing Edge Costs}
 
-The cost assigned to an edge during pathfinding implements the model described in the Problem Modeling section.
+The cost assigned to an edge during pathfinding implements the model described in the Problem Modelling section.
 First, the base traversal time $c(e)$ is adjusted for the user's walking speed using \autoref{eq:adjusted_cost}, where $\sigma$ is the speed multiplier and $\alpha(\tau)$ is the type-dependent speed exponent defined in \autoref{eq:speed_exponent}.
 This is implemented directly in \texttt{compute\_adjusted\_cost()} (\autoref{lst:adjusted_cost_computation}).
 
@@ -299,7 +299,7 @@ The cost function is passed in as an argument (\texttt{cost\_fn}), which allows 
 
 \subsubsection{Multi-Waypoint Support}
 
-When the user specifies intermediate waypoints, the route is decomposed into segments as described in the Problem Modeling section.
+When the user specifies intermediate waypoints, the route is decomposed into segments as described in the Problem Modelling section.
 The function \texttt{\_find\_route()} iterates over each consecutive pair of waypoints and runs Dijkstra's algorithm independently for each segment.
 The resulting steps are concatenated to form the complete route, and the total adjusted cost is computed as the sum of the adjusted costs of all steps.
 
@@ -405,7 +405,7 @@ The system generated two solutions for the scenario, which are presented in \aut
 \subsubsection{Discussions}
 For this scenario, the main concern is ensuring a barrier-free path for a user with mobility constraints.
 Since the user must avoid all stairs and escalators, it is reasonable to assume they may at a slower pace than average.
-Existing pedestrian navigation solutions often prioritize the shortest geometric distance and frequently overlook specific accessibility barriers for users with slower walking speeds.
+Existing pedestrian navigation solutions often prioritise the shortest geometric distance and frequently overlook specific accessibility barriers for users with slower walking speeds.
 In contrast, our project includes an ``Accessible Route'' preference that strictly avoid escalator-required route and utilises a customisable speed multiplier to provide an accurate time estimate tailored to the user's actual pace.
 
 \subsection{Scenario 3 -- Multi-Stop Navigation}
@@ -575,7 +575,7 @@ As of the end of the project, the workload distribution by each member is declar
 The contributions declared by \textbf{\cBanh} are:
 \begin{itemize}
     \item Survey existing navigation solutions and compare them in a table format.
-    \item Problem modeling for our solution: definition of the type of nodes, measuring method.
+    \item Problem modelling for our solution: definition of the type of nodes, measuring method.
     \item Data collection: collect data in between other team members' assigned zones.
     \item Provide suggestion and recommendation of displaying UI and useful modes in the program.
     \item Data cleaning: cleaning up messy data in the Google Sheet.
@@ -584,7 +584,7 @@ The contributions declared by \textbf{\cBanh} are:
 The contributions declared by \textbf{\sLiu} are:
 \begin{itemize}
     \item Be responsible for data collection of a specific region, recorded the time and distance data between several different destinations.
-    \item Data recording: settled and arranged a part of recorded data, provided resources for coding and modeling.
+    \item Data recording: settled and arranged a part of recorded data, provided resources for coding and modelling.
     \item Checking the program by verifying the accuracy through the comparison with reality, provide related possible solutions and potential improvement for different cases.
 \end{itemize}
 
