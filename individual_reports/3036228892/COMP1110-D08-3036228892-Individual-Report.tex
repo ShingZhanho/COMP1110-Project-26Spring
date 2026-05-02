@@ -65,7 +65,7 @@
 
 % TOC
 
-\tableofcontents
+% \tableofcontents
 
 % BODY
 
@@ -88,7 +88,54 @@ Throughout this project, I was responsible for the following aspects:
 
 \section{Personal Evaluation}
 
+Overall, I consider the project to be a success in terms of its computational and algorithmic design.
+The campus navigation problem involves a number of interacting concerns, including heterogeneous traversal types, user-configurable preferences, speed-dependent costs, and multi-waypoint journey planning.
+The graph-theoretic formulation adopted in this project reduces these concerns to a single coherent model, in which all of the above are expressed as properties of nodes, edges, and a parameterised cost function.
+This transformation enables the application of Dijkstra's algorithm in a clean and well-understood way, and the resulting system produces correct and meaningful routes across a range of scenarios.
+
+That said, I believe the project has significant room for improvement in terms of practical applicability.
+The data model captures only the most fundamental attributes of each campus segment: its type and a single base traversal time.
+In reality, the traversability and cost of a segment depend on a much richer set of factors.
+For instance, the model currently does not account for time-of-day variation in crowd density, the directional asymmetry of escalators, the waiting time associated with lifts, or the temporary unavailability of infrastructure due to maintenance.
+A user relying on the system during peak hours or when a particular lift is out of service would receive estimates that are noticeably inaccurate.
+
+Addressing these limitations would not necessarily require a fundamental redesign of the algorithmic core, since the cost function is already parameterised and could be extended to accept additional inputs.
+The primary challenge lies in the data collection and maintenance effort required to populate the additional attributes reliably.
+Nonetheless, bridging this gap between the theoretical model and the practical conditions of a real campus would be the most important direction for improving the system.
+
 \section{Reflection}
+
+\subsection{What I Learnt}
+
+One of the most valuable lessons from this project was the experience of transforming a loosely stated real-world problem into a formal, computable model.
+Deciding on the appropriate data structure, identifying which attributes are essential, and expressing the cost function in precise mathematical terms required a level of rigour that I had not previously applied to a self-directed project.
+This process gave me a much clearer understanding of how abstract mathematical concepts such as weighted graphs and shortest-path algorithms connect to practical engineering decisions.
+
+On the technical side, I gained familiarity with the Textual library for building terminal user interfaces in Python.
+Prior to this project, I had not worked with any terminal UI framework, and learning to structure a multi-screen application with reactive state management was a new experience.
+Although my use of the library remained at a basic level, it gave me a concrete understanding of the component model and how UI state can be decoupled from business logic.
+
+Working on a group software project also consolidated my understanding of collaborative development practices.
+In particular, I set up a GitHub Actions workflow to run linting checks automatically on each push, which helped enforce a consistent code style across contributions from different members.
+This was my first experience configuring a continuous integration pipeline for a shared Python repository, and it reinforced the importance of automated tooling for maintaining codebase consistency as a project grows.
+
+In terms of AI usage, this project provided an opportunity to reflect more carefully on the ethics of using AI-assisted tools in an academic context.
+Specifically, I developed a clearer personal framework around the two responsibilities I consider most important: acknowledging AI involvement transparently, and independently verifying that the generated outputs are correct and appropriate before accepting them.
+These principles, which are discussed in more detail in the following section, are ones I intend to carry forward in future work.
+
+Finally, as a side endeavour, typesetting the project plan, final report, and other documents in \LaTeX{} gave me the opportunity to considerably consolidate my \LaTeX{} skills.
+Handling multi-page tables, custom column types, floating figures, and landscape layouts within a document of this complexity was a meaningful exercise in its own right.
+
+\subsection{Reflections on the Project Process}
+
+On the whole, I found this project to be an enjoyable and rewarding experience.
+There is a particular satisfaction in taking an idea that exists only as an informal description and seeing it realised as a working application that produces sensible and useful results.
+The fact that the system we built is directly relevant to our own daily campus experience made the goal feel concrete and worthwhile throughout the development process.
+
+I also found it notable that the course explicitly permitted the use of AI tools, and I think this decision contributed meaningfully to the quality of the project experience.
+The benefit was not simply that certain tasks became less time-consuming, though that was certainly true.
+More significantly, working with state-of-the-art AI tools in a structured project context provided firsthand experience of how such tools fit into a real development workflow, including both their capabilities and their limitations.
+It also created a genuine opportunity to engage with the ethical questions surrounding AI use in an academic setting, which I believe is a more effective form of learning than encountering those questions in the abstract.
 
 \section{Declaration on Usage of Artificial Intelligence}
 
@@ -97,7 +144,36 @@ The tools were used for various purposes, including but not limited to code gene
 Details of the tools used, prompts given, and outputs received are attached in \autoref{adx:ai-prompts}.
 Specific use cases and how were the results generated by AI tools are verified are discussed in this section.
 
-\appendix
+\subsection{Using AI for code generation}
+
+AI tools were used to generate code for implementing the project (details in \autoref{adx:main-app-prompts}).
+To ensure the quality and correctness of the generated code, instead of giving a one-sentence prompt and accepting the output, I carefully considered the detailed outcomes that I expect for the project, and listed them in an instruction file.
+This allows the generated code to have a better quality on first pass.
+
+After the code was generated, I executed the application and manually tested all of the features with normal and edge cases, while noting down the faulty outcomes.
+As presented in the follow-up prompts, I then fed the error messages back to the AI tool for correction.
+This iterative process of testing and debugging was carried out until the application was stable and up to the expected standard.
+
+Apart from my verification, the code was also tested or reviewed by other members of the group, which further ensures the correctness and quality of the code.
+
+\subsection{Using AI for boilerplate generation}
+
+For some parts of the project, such as writing the final report, there was repetitive overhead that was not directly related to the core learning outcomes of the project.
+For example, for illustrating the scenario study outcomes, figures need to be drawn for multiple solutions, and they share the same style and format.
+Manually writing the TikZ code for each figure is time-consuming and not necessarily related to the purpose of this project.
+To address this, I used AI tools to generate templates for the TikZ figures, which can then be easily reused for multiple figures with minor modifications.
+
+As shown in \autoref{adx:tikz-template-prompt}, AI generated a clearly documented and easy-to-use template for drawing solution diagrams, which significantly reduced the time and effort needed to create the figures for the report.
+The generated template was compiled and verified to work correctly.
+All four figures in the final report were created based on the template or its variants.
+
+\subsection{Using AI for report writing}
+
+For writing the problem definition part of the report, the group has already developed a rough idea about using graphs to model the campus navigation problem (as can be seen in the project plan).
+However, for presenting the definition and modelling in a more formal and professional way, I used AI tools to read through the original ideas and formulate them mathematically with proper notations.
+Since the generated content was based on the original ideas and consists of elementary mathematical formulae, it was verified by reading through the generated content and ensuring the mathematics remain consistent with the idea and the codes.
+
+\appendix \clearpage
 
 \section{Prompts Used with AI} \label{adx:ai-prompts}
 
