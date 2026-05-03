@@ -62,7 +62,7 @@ python -m campus_nav
 
 *(Note: Use `python3` instead of `python` on macOS/Linux if necessary.)*
 
-## How to use
+## How to use (Demo Video [Link](https://www.youtube.com/watch?v=UmHVFmTEAVQ))
 
 The campus navigator app is built with the library Textual, supporting both keyboard and mouse interaction.
 Upon launching the app, you should see the following screen:
@@ -74,7 +74,7 @@ Click **"Continue"** to access to the navigator
 You can set your waypoints, preferences and configuration in the interface
 
 <details>
-  <summary>screen</summary>
+  <summary>Screenshot</summary>
    <img src="images/TC-9.1.png" alt="TC-9.1">
 </details> 
 
@@ -89,14 +89,14 @@ After setting all the things here, you can click **"go"** in the bottom.
 Then, you can get all the routes that meet your requirements.
 
 <details>
-  <summary>screen</summary>
+  <summary>Screenshot</summary>
   <img src="images/TC-4.png" alt="TC-4.1">
 </details>
 
 You can click" **"Details"** to view the detail of the route.
 
 <details>
-  <summary>screen</summary>
+  <summary>Screenshot</summary>
    <img src="images/TC-1.1.png" alt="TC-1.1">
 </details> 
 
