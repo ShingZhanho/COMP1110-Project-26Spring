@@ -1,22 +1,64 @@
-## How to run
+## How to Run
 
-You should have Python installed on your device.
-The program is tested on Python 3.14.
-Other versions may work but not guaranteed.
+### Prerequisites
 
-1. **Clone the repository**
-   ```shell
-   git clone https://github.com/ShingZhanho/COMP1110-Project-26Spring.git
-   cd COMP1110-Project-26Spring
-   ```
-2. **Install Python dependencies** (installing packages in a virtual environment is recommended)
-   ```shell
-   pip install -r requirements.txt
-   ```
-3. **Start the program**
-   ```shell
-   python -m campus_nav
-   ```
+- **Python 3.10+**: This program is tested on Python 3.14. (Python 3.10 or higher is recommended).
+- **Git**: Ensure Git is installed on your system to clone the repository.
+
+---
+
+### 1. Clone the Repository
+
+Open your terminal (or Command Prompt) and run:
+
+```shell
+git clone https://github.com/ShingZhanho/COMP1110-Project-26Spring.git
+cd COMP1110-Project-26Spring
+```
+
+### 2. Set Up Virtual Environment (Recommended)
+
+This ensures dependencies are isolated and won't conflict with your system settings.
+
+#### On macOS / Linux:
+
+```shell
+# Create a virtual environment
+python3 -m venv venv
+
+# Activate it
+source venv/bin/activate
+
+# Install dependencies
+pip install -r requirements.txt
+```
+
+#### On Windows:
+
+```shell
+# Create a virtual environment
+python -m venv venv
+
+# Activate it
+# If using Command Prompt:
+venv\Scripts\activate
+# If using PowerShell (you may need to bypass execution policy):
+# Set-ExecutionPolicy -ExecutionPolicy RemoteSigned -Scope Process
+# .\venv\Scripts\Activate.ps1
+
+# Install dependencies
+python -m pip install -r requirements.txt
+```
+
+### 3. Start the Program
+
+Once the virtual environment is activated and dependencies are installed, run:
+
+```shell
+python -m campus_nav
+```
+
+*(Note: Use `python3` instead of `python` on macOS/Linux if necessary.)*
 
 ## How to use
 
