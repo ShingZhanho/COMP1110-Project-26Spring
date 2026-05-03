@@ -1,7 +1,5 @@
 # NavAble: Accessibility-First Campus Navigation
 
----
-
 ## How to Run
 
 ### Prerequisites
